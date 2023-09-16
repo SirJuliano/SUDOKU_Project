@@ -70,7 +70,7 @@ T_box deleteValue(T_box box, int value)
         T_box current = box;
         while (current != NULL)
         {
-            if (current->suiv->pdata == value)
+            if (*current->suiv->pdata == value)
             {
                 T_box current2 = current->suiv->suiv;
                 free(current->suiv->pdata);
@@ -127,12 +127,15 @@ int getNbreCell(T_box box)
 
 void showList(T_box box)
 {
-    if (!isEmpty(box))
+    T_box current = box;
+
+    if (!isEmpty(current))
     {
         int i = 0;
-        while (box->suiv != NULL)
+        while (current != NULL)
         {
-            printf("L[%d] = %d\n", i, box->pdata);
+            printf("L[%d] = %d\n", i, *current->pdata);
+            current = current->suiv;
             i ++;
         }
     }

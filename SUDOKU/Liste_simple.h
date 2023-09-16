@@ -32,6 +32,7 @@ différentes fonctions qui pourraient s'avérer utiles
 getptrNdata
 ou getdata
 getsize
+free liste pour fin run 
 */
 
 
