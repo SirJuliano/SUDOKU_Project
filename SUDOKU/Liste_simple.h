@@ -9,34 +9,29 @@ typedef struct T_box_possibilities{
 } T_box_List;
 typedef T_box_List *T_box;
 
-void initListe(T_box *l);
-void FillList(T_box l);
+void initListe(T_box *box);
+bool isEmpty(T_box box);
+T_box ajoutEnFin(T_box box, int mydata);
+T_box fillList(T_box box, int length);
+
+T_box deleteValue(T_box box, int value);  //Supprime une case en fonction du pdata contenu 
+T_box getptrNextCell(T_box box);
+
+
+int* getPtrData(T_box box);     //surement necessaire
+
+int getNbreCell(T_box box);     //ABSOLUMENT NECESSAIRE POUR DETERMINER SI UNE CASE EST VALIDE
+
+void showList(T_box box);
 
 
 
-
-T_box ajoutEnTete(T_box l, int mydata);    //peut etre pas besoin des ajouts
-T_box ajoutEn2ePosition (T_box l, int mydata);
-T_box ajoutEnFin(T_box l, int mydata);
-
-T_box Delete_Value(T_box box, int value);  //Supprime une case en fonction du pdata contenu 
-
-T_box getptrNextCell(T_box l);
-
-
-int* getPtrData(T_box l);     //surement necessaire
-void swapPtrData( T_box source, T_box destination );  //probablement non necessaire
-
-int getNbreCell(T_box l);     //ABSOLUMENT NECESSAIRE POUR DETERMINER SI UNE CASE EST VALIDE
-
-
-void tri_selection_liste(T_box l, bool (*fcomp) (int a, int b));   //probablement pas nécessaire
 
 /*
 différentes fonctions qui pourraient s'avérer utiles
 getptrNdata
 ou getdata
-getsyze
+getsize
 */
 
 

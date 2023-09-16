@@ -13,7 +13,44 @@ void initListe(T_box *box)
     *box=NULL;
 }
 
-void FillList(T_box box, int length)
+bool isEmpty(T_box box)
+{
+    if (box == NULL)
+    {
+        return true;
+    }
+    else return false;
+}
+
+
+
+
+//Permet l'ajout d'un nouvel élément à la fin d'une liste
+T_box ajoutEnFin(T_box box, int mydata)
+{
+    T_box nouv = (T_box)malloc(sizeof(struct T_box_possibilities));
+    nouv->pdata = (int*)malloc(sizeof(int));
+    *(nouv->pdata)= mydata;
+
+    if (box==NULL)
+    {
+        nouv->suiv=NULL;
+        return nouv;
+    }
+    else
+    {
+        T_box courant = box;
+        while (courant->suiv != NULL)
+        {
+            courant = courant->suiv;
+        }
+        nouv->suiv=NULL;
+        courant->suiv=nouv;
+        return box;
+    }
+}
+
+T_box fillList(T_box box, int length)
 {
     for (int i = 1; i<length + 1; i++)
     {
@@ -22,74 +59,10 @@ void FillList(T_box box, int length)
     return box;
 }
 
-
-//Permet d'ajouter un nouvel élément au début d'une liste
-T_box ajoutEnTete(T_box box, int mydata)
-{
-    T_box nouv = (T_box)malloc(sizeof(struct T_box_possibilities));
-    nouv->pdata = (int*)malloc(sizeof(int));
-    *(nouv->pdata)=mydata;
-
-    if (box==NULL)
-    {
-        nouv->suiv=NULL;
-    }
-    else
-    {
-
-        nouv->suiv=box;
-    }
-    return nouv;
-}
-
-//Permet l'ajout d'un nouvel élément en 2eme position d'une liste
-T_box ajoutEn2ePosition (T_box box, int mydata)
-{
-
-    T_box nouv = (T_box)malloc(sizeof(struct T_box_possibilities));
-    nouv->pdata = (int*)malloc(sizeof(int));
-    *(nouv->pdata)= mydata;
-    if (box == NULL)
-    {
-        return ajoutEnTete(box, mydata);
-    }
-
-    T_box courant = box->suiv;
-    box->suiv = nouv;
-    nouv->suiv = courant;
-
-    return box;
-}
-
-//Permet l'ajout d'un nouvel élément à la fin d'une liste
-T_box ajoutEnFin(T_box l, int mydata)
-{
-    T_box nouv = (T_box)malloc(sizeof(struct T_box_possibilities));
-    nouv->pdata = (int*)malloc(sizeof(int));
-    *(nouv->pdata)= mydata;
-
-    if (l==NULL)
-    {
-        nouv->suiv=NULL;
-        return nouv;
-    }
-    else
-    {
-        T_box courant = l;
-        while (courant->suiv != NULL)
-        {
-            courant = courant->suiv;
-        }
-        nouv->suiv=NULL;
-        courant->suiv=nouv;
-        return l;
-    }
-}
-
 //Permet de supprimer le premier élément d'une liste (elle vérifie avant s'il y en a bien un)
-T_box Delete_Value(T_box box, int value)
+T_box deleteValue(T_box box, int value)
 {
-    if (box == NULL)
+    if ((box) == NULL)
     {
         return box;
     }
@@ -111,46 +84,38 @@ T_box Delete_Value(T_box box, int value)
 
 
 //Permet d'obtenir le pointeur de l'élément suivant d'une liste
-T_box getptrNextCell(T_box l)
+T_box getptrNextCell(T_box box)
 {
-    if (l == NULL)
+    if (box == NULL)
     {
-        return l;
+        return box;
     }
-    if (l->suiv == NULL)
+    if (box->suiv == NULL)
     {
         return NULL;
     }
-    return l->suiv;
+    return box->suiv;
 }
 
 
 //Permet d'obtenir le pointeur de la donnée enregistrée dans ce T_box (ici nous obtiendrons un int*
-int* getPtrData(T_box l)
+int* getPtrData(T_box box)
 {
-    if (l == NULL)
+    if (box == NULL)
     {
         return NULL;
     }
-    return l->pdata;
-}
-
-//Permet d'échanger de position deux données d'une liste en échangeant leurs pointeurs respectifs
-void swapPtrData( T_box source, T_box destination )
-{
-    int* mem = source->pdata;
-    source->pdata=destination->pdata;
-    destination->pdata=mem;
+    return box->pdata;
 }
 
 //Permet d'obtenir le nombre de cellules dans une liste
-int getNbreCell(T_box l)
+int getNbreCell(T_box box)
 {
-    if (l == NULL)
+    if (box == NULL)
     {
         return 0;
     }
-    T_box courant = l;
+    T_box courant = box;
     int i = 1;
     while (courant->suiv != NULL)
     {
@@ -160,32 +125,15 @@ int getNbreCell(T_box l)
     return i;
 }
 
-
-//Permet de trier une liste selon le résultat de la fonction fcomp choisie
-void tri_selection_liste(T_box l, bool (*fcomp) (int a, int b))
+void showList(T_box box)
 {
-    int i,k,sizel;
-    sizel = getNbreCell(l);
-    T_box courant =l;
-    T_box plus_petit = NULL;
-    T_box j = NULL;
-
-    for (i=0;i<sizel;i++)
+    if (!isEmpty(box))
     {
-        plus_petit = courant;
-        j = courant;
-        for (k=i;k<sizel;k++)
+        int i = 0;
+        while (box->suiv != NULL)
         {
-
-            //if (*(getPtrData (j)) < *(getPtrData(plus_petit)))
-            if (fcomp(*(j->pdata),*(plus_petit->pdata)))
-            {
-                //printf("%d",*(getPtrData(j)));
-                plus_petit = j;
-            }
-            j = getptrNextCell(j);
+            printf("L[%d] = %d\n", i, box->pdata);
+            i ++;
         }
-        swapPtrData (courant,plus_petit);
-        courant = getptrNextCell(courant);
     }
 }
