@@ -99,7 +99,7 @@ T_box suppEnTete(T_box box)
 void deleteList(T_box box, int size)
 {
     for (int i = 0; i < size; i++)
-        box = SuppEnTete(box);
+        box = suppEnTete(box);
 }
 
 //Permet d'obtenir le pointeur de l'élément suivant d'une liste
@@ -169,14 +169,12 @@ bool foundData(T_box box, int value)     //Peut etre return le pointeur du data 
     T_box current = box;
     while (current != NULL)
     {
-        if (current == NULL)
-        {
-            return false;
-        }
+        
         if (current->pdata == value)
         {
             return true;
         }
         current  = getptrNextCell(current);
         }
+        return false;
 }

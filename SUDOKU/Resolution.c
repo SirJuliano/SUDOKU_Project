@@ -47,25 +47,54 @@ bool validLine(T_gridF grid, int posHeight)
 //verifie que le carre de 3*3 est valide
 bool validSquare(T_gridF grid, int square)
 {
-    int Lstart = square / 3 * 3;
-    int Hstart = square % 3 * 3;
+    int Lstart = square % 3 * 3;     //square représente le numéro du carré
+    int Hstart = square / 3 * 3;    //coordonnée de la case en haut à gauche du carré
     for (int len = Lstart; len < Lstart + 3; len++)
     {
-        for (int hei = Hstart; hei < Hstart + 3; hei++)
+        for (int hei = Hstart; hei < Hstart + 3; hei++)     //parcours du carré
         {
-            if (grid[len][hei] != 0)
+            if (grid[len][hei] != 0)        //s'il y a une valeur dans la case
             {
-                for (int lCur = len ; lCur < Lstart + 3; lCur++)
+                for (int lCur = Lstart ; lCur < Lstart + 3; lCur++)
                 {
-                    for (int hCur = hei; hCur < Hstart + 3; hCur++)
+                    for (int hCur = Hstart; hCur < Hstart + 3; hCur++)     //parcours du carré
                     {
-                        if 
+                        if (len != lCur && hei != hCur && grid[len][hei] == grid[lCur][hCur])       //si les cases ont la même valeur, le carré n'est pas valide
+                            return false;
                     }
                 }
             }
             
         }
     }
+    return true;    //sinon, le carré est valide
+}
+
+bool validGrid(T_gridF grid)
+{
+    for(int i = 0; i < LENGTH; i++)
+    {
+        if(validColumn(grid, i)==false)
+        {
+            return false;
+        }
+    }
+    for(int j=0; j < HEIGHT; j++)
+    {
+        if(validLine(grid, j) == false)
+        {
+            return false;
+        }
+    }
+    int nbrSquare = nbrOfSquare(int LENGTH, int HEIGHT);
+    for(int k=0; k < nbrSquare; k++)
+    {
+        if(validSquare(grid, k)==false)
+        {
+            return false;
+        }
+    }
+    return true;    
 }
 
 

@@ -85,6 +85,7 @@ T_gridF initGrid(T_gridF grid,int lenght, int height) //initialise toutes les ca
         {
             grid[i][j] = 0;
         }
+        return grid;
     }
 }
 
@@ -110,7 +111,7 @@ void Show_grid_final (T_gridF gridF, int size) // affiche la grille
         printf("\n|");
         for (int lin = 0; lin < size; lin++)
         {
-            if (gridF[lin][col] != 0L)
+            if (gridF[lin][col] != 0)
                 printf("%d|",(gridF[col][lin]));
             else
                 printf(" |");

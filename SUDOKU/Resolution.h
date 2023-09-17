@@ -6,7 +6,8 @@
 
 bool validColumn(T_gridF grid, int posLargeur);
 bool validLine (T_gridF grid, int posHeight);
-bool validSquare(int posLine, int posColumn);
+bool validSquare(T_gridF grid, int square);
+bool validGrid(T_gridF grid);
 
 #define LENGTH 9
 #define HEIGHT 9
