@@ -11,12 +11,15 @@ typedef T_box_List *T_box;
 
 void initListe(T_box *box);
 bool isEmpty(T_box box);
+
 T_box ajoutEnFin(T_box box, int mydata);
 T_box fillList(T_box box, int length);
 
 T_box deleteValue(T_box box, int value);  //Supprime une case en fonction du pdata contenu 
-T_box getptrNextCell(T_box box);
+T_box suppEnTete(T_box box);
+void deleteList(T_box box, int size);
 
+T_box getptrNextCell(T_box box);
 
 int* getPtrData(T_box box);     //surement necessaire
 
@@ -24,15 +27,17 @@ int getNbreCell(T_box box);     //ABSOLUMENT NECESSAIRE POUR DETERMINER SI UNE C
 
 void showList(T_box box);
 
+bool foundData(T_box box, int value);
+
 
 
 
 /*
 différentes fonctions qui pourraient s'avérer utiles
 getptrNdata
-ou getdata
-getsize
-free liste pour fin run 
+ou founddata 
+getsize DONE
+free liste pour fin run DONE
 */
 
 

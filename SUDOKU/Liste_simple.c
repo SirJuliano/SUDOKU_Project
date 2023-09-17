@@ -82,6 +82,25 @@ T_box deleteValue(T_box box, int value)
     }
 }
 
+T_box suppEnTete(T_box box)
+{
+    if (box == NULL)
+    {
+        return box;
+    }
+
+    T_box current = box->suiv;
+    free(box->pdata);
+    free(box);
+    return current;
+
+}
+
+void deleteList(T_box box, int size)
+{
+    for (int i = 0; i < size; i++)
+        box = SuppEnTete(box);
+}
 
 //Permet d'obtenir le pointeur de l'élément suivant d'une liste
 T_box getptrNextCell(T_box box)
@@ -139,4 +158,25 @@ void showList(T_box box)
             i ++;
         }
     }
+}
+
+bool foundData(T_box box, int value)     //Peut etre return le pointeur du data found(sinon NULL)
+{
+    if (box == NULL)
+    {
+        return false;
+    }
+    T_box current = box;
+    while (current != NULL)
+    {
+        if (current == NULL)
+        {
+            return false;
+        }
+        if (current->pdata == value)
+        {
+            return true;
+        }
+        current  = getptrNextCell(current);
+        }
 }
