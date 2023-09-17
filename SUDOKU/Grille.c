@@ -1,8 +1,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdbool.h>
+#include <math.h>
 
-#include "Liste_simple.h"
 #include "Grille.h"
 /*
 T_grid createGrid(int lenght, int height)
@@ -16,10 +16,10 @@ T_grid createGrid(int lenght, int height)
     return grid;  //tab2D contenant des pointeurs
 }
 */
-int nbrOfSquare(int lenght, int height) //nombre de carrés (9 par default)
+int nbrOfSquare(int length, int height) //nombre de carrés (9 par default)
 {
-    int lSquare = lenght/3;
-    int hSquare = height/3;
+    int lSquare = length/sqrt(length);
+    int hSquare = height/sqrt(height);
     return (lSquare * hSquare);
 }
 
@@ -68,24 +68,23 @@ void show_grid(T_grid grid, int size)
 T_gridF finalGrid(int lenght, int height) //allocation de la memoire pour un tableau en deux dimensions
 {
     T_gridF gridF;
-    gridF = (int**)malloc(sizeof(int*) * lenght); 
+    gridF = (T_gridF)malloc(sizeof(int*) * lenght);
     for (int i=0; i<lenght; i++)
     {
-        gridF[i] = (int*)malloc(sizeof(int) * height); 
+        gridF[i] = (int*)malloc(sizeof(int) * height);
     }
     return gridF;  //tab2d representant la grille
 }
 
 
-T_gridF initGrid(T_gridF grid,int lenght, int height) //initialise toutes les cases de la grille à 0
+void initGrid(T_gridF grid,int lenght, int height) //initialise toutes les cases de la grille à 0
 {
-    for (int i=0; i<lenght;i++)
+    for (int i=0; i<lenght; i++)
     {
         for (int j=0; j<height; j++)
         {
             grid[i][j] = 0;
         }
-        return grid;
     }
 }
 
@@ -102,23 +101,97 @@ T_gridF deleteAvalue (T_gridF gridF, int pos_line, int pos_column) //supprime la
     return gridF;
 }
 
-void Show_grid_final (T_gridF gridF, int size) // affiche la grille 
+void Show_grid_final (T_gridF gridF, int sizel) // affiche la grille
 {
-    for (int col = 0; col < size; col++)
+    int sizeSquare = sqrt(nbrOfSquare(sizel, sizel));
+    int nbrCharPerLine = 4 * sizel + 2 + sizel / sizeSquare; //chaque case contient 2 espaces, un chiffre et un "|", il y a un "|" au debut et a la fin et un "|" entre chaque carré
+    for (int lin = 0; lin < sizel; lin++)
     {
-        for (int n = 0; n < (2 * size + 1); n++)
-            printf("-");
-        printf("\n|");
-        for (int lin = 0; lin < size; lin++)
+        if (lin % sizeSquare == 0)
         {
-            if (gridF[lin][col] != 0)
-                printf("%d|",(gridF[col][lin]));
-            else
-                printf(" |");
+            for (int n = 0; n < nbrCharPerLine; n++)
+            {
+                printf("=");
+            }
+            printf("\n||");
+            for (int col = 0; col < sizel; col++)
+            {
+                if (col % sizeSquare == sizeSquare - 1)
+                {
+                    if (gridF[lin][col] != 0)
+                    {
+                        printf(" %d ||",(gridF[lin][col]));
+                    }
+                    else
+                    {
+                        printf("   ||");
+                    }
+                }
+                else
+                {
+                    if (gridF[lin][col] != 0)
+                    {
+                        printf(" %d |",(gridF[lin][col]));
+                    }
+                    else
+                    {
+                        printf("   |");
+                    }
+                }
+            }
+            printf("\n");
         }
-        printf("\n");
+        else
+        {
+            for (int n = 0; n < nbrCharPerLine; n++)
+            {
+                printf("-");
+            }
+            printf("\n||");
+            for (int col = 0; col < sizel; col++)
+            {
+                if (col % sizeSquare == sizeSquare - 1)
+                {
+                    if (gridF[lin][col] != 0)
+                    {
+                        printf(" %d ||",(gridF[lin][col]));
+                    }
+                    else
+                    {
+                        printf("   ||");
+                    }
+                }
+                else
+                {
+                    if (gridF[lin][col] != 0)
+                    {
+                        printf(" %d |",(gridF[lin][col]));
+                    }
+                    else
+                    {
+                        printf("   |");
+                    }
+                }
+            }
+            printf("\n");
+        }
     }
-    for (int n = 0; n < (2 * size + 1); n++)
-            printf("-");
+    for (int n = 0; n < nbrCharPerLine; n++)
+    {
+        printf("=");
+    }
+    printf("\n");
 }
+
+void freeGrid(T_gridF grid, int sizel)
+{
+    for (int i=0; i<sizel; i++)
+    {
+        free(grid[i]);
+    }
+    free(grid);
+}
+
+
+
 

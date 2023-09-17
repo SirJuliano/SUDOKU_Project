@@ -169,8 +169,8 @@ bool foundData(T_box box, int value)     //Peut etre return le pointeur du data 
     T_box current = box;
     while (current != NULL)
     {
-        
-        if (current->pdata == value)
+
+        if (*current->pdata == value)
         {
             return true;
         }

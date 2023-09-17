@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include <stdbool.h>
 
-#include "Liste_simple.h"
+
 #include "Grille.h"
 #include "Resolution.h"
 
@@ -64,7 +64,7 @@ bool validSquare(T_gridF grid, int square)
                     }
                 }
             }
-            
+
         }
     }
     return true;    //sinon, le carré est valide
@@ -94,7 +94,7 @@ bool validGrid(T_gridF grid)
             return false;
         }
     }
-    return true;    
+    return true;
 }
 
 
