@@ -86,7 +86,7 @@ bool validGrid(T_gridF grid)
             return false;
         }
     }
-    int nbrSquare = nbrOfSquare(int LENGTH, int HEIGHT);
+    int nbrSquare = nbrOfSquare(LENGTH, HEIGHT);
     for(int k=0; k < nbrSquare; k++)
     {
         if(validSquare(grid, k)==false)
