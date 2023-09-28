@@ -35,18 +35,10 @@
 			<Option compilerVar="CC" />
 		</Unit>
 		<Unit filename="Grille.h" />
-		<Unit filename="Liste_simple.c">
-			<Option compilerVar="CC" />
-		</Unit>
-		<Unit filename="Liste_simple.h" />
 		<Unit filename="Resolution.c">
 			<Option compilerVar="CC" />
 		</Unit>
 		<Unit filename="Resolution.h" />
-		<Unit filename="SDL.c">
-			<Option compilerVar="CC" />
-		</Unit>
-		<Unit filename="SDL.h" />
 		<Unit filename="main.c">
 			<Option compilerVar="CC" />
 		</Unit>

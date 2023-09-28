@@ -1,21 +1,37 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <stdbool.h>
-
+#include <math.h>
 
 #include "Grille.h"
 #include "Resolution.h"
 
-//verifie que la colonne est valide
-bool validColumn(T_gridF grid, int posLength)
+//fonction qui vérifie si la valeur val est déjà apparue dans la ligne/case/colonne
+bool verifCase(bool *res, int val)
 {
-    for(int i=0; i<LENGTH; i++)
+    if (res[val - 1] != 0)       // res est un tableau de booléens avec true pour la case(x-1) si la valeur x est déjà présente
     {
-        if(grid[i][posLength]!=0)
+        return false;
+    }
+    else                        // si elle ne l'est pas, on la note comme présente
+    {
+        res[val - 1] = 1;
+    }
+    return true;
+}
+
+//fonction qui vérifie si la colonne/case/ligne ne posède pas plusieurs chiffre identiques
+bool gridVerif(T_grid grid, int X1, int X2, int Y1, int Y2)
+{
+    bool res[(X2 - X1 + 1) * (Y2 - Y1 + 1)];        //tableau de booléens initialisé a 0 avec autant de cases que de nombres à tester
+                                                    //pour les chiffres de 1 à 9, il y aura 9 cases
+    for(int X = X1; X < X2 ; X++)
+    {
+        for(int Y = Y1; Y < Y2; Y++)
         {
-            for (int j=i+1; j<LENGTH; j++)
+            if(getVal(grid, X, Y)!=0)
             {
-                if(grid[i][posLength]==grid[j][posLength])
+                if (verifCase(res, getVal(grid, X, Y)) == false)
                 {
                     return false;
                 }
@@ -25,80 +41,52 @@ bool validColumn(T_gridF grid, int posLength)
     return true;
 }
 
-//verifie que la ligne est valide
-bool validLine(T_gridF grid, int posHeight)
+//fonction vérifiant la validité d'une ligne
+bool verifLine(T_grid grid, int y, int length)
 {
-    for (int i = 0; i<HEIGHT;i++)
+    return gridVerif(grid, 0, length, y, y);
+}
+
+//fonction vérifiant la validité d'une colonne
+bool verifColumn(T_grid grid, int x, int length)
+{
+    return gridVerif(grid, x, x, 0, length);
+}
+
+//fonction vérifiant la validité d'un carré
+bool verifSquare(T_grid grid, int x, int y, int length)
+{
+    int sizeSquare = sqrt(length);
+    return gridVerif(grid, x, (x + sizeSquare), y, (y + sizeSquare));
+}
+
+//fonction vérifiant la validité de la grille complète
+bool verifGrid(T_grid grid, int length)
+{
+    for(int i = 0; i < length; i++)
     {
-        if (grid[posHeight][i]!=0)
+        if(verifLine(grid, i, length) == false || verifColumn(grid, i, length) == false)
         {
-            for (int j = i+1; j<HEIGHT; j++)
+            return false;
+        }
+    }
+    int nbrSquarePerLine = sqrt(length);                //nombre de carré par ligne/colonne
+    for (int j = 0; j < nbrSquarePerLine; j++)          //parcours des carrés de chaque lignes
+    {
+        for (int k = 0; k < nbrSquarePerLine; k++)      //parcours des carrés de chaque colonnes
+        {
+            if (verifSquare(grid, (j * nbrSquarePerLine), (k * nbrSquarePerLine), length) == false)     //on donne les coordonnées des cases situées en haut à gauche des carrés
             {
-                if (grid[posHeight][i] == grid[posHeight][j])
-                {
-                    return false;
-                }
+                return false;
             }
         }
     }
     return true;
 }
 
-//verifie que le carre de 3*3 est valide
-bool validSquare(T_gridF grid, int square)
-{
-    int Lstart = square % 3 * 3;     //square représente le numéro du carré
-    int Hstart = square / 3 * 3;    //coordonnée de la case en haut à gauche du carré
-    for (int len = Lstart; len < Lstart + 3; len++)
-    {
-        for (int hei = Hstart; hei < Hstart + 3; hei++)     //parcours du carré
-        {
-            if (grid[len][hei] != 0)        //s'il y a une valeur dans la case
-            {
-                for (int lCur = Lstart ; lCur < Lstart + 3; lCur++)
-                {
-                    for (int hCur = Hstart; hCur < Hstart + 3; hCur++)     //parcours du carré
-                    {
-                        if (len != lCur && hei != hCur && grid[len][hei] == grid[lCur][hCur])       //si les cases ont la même valeur, le carré n'est pas valide
-                            return false;
-                    }
-                }
-            }
 
-        }
-    }
-    return true;    //sinon, le carré est valide
-}
-
-bool validGrid(T_gridF grid)
-{
-    for(int i = 0; i < LENGTH; i++)
-    {
-        if(validColumn(grid, i)==false)
-        {
-            return false;
-        }
-    }
-    for(int j=0; j < HEIGHT; j++)
-    {
-        if(validLine(grid, j) == false)
-        {
-            return false;
-        }
-    }
-    int nbrSquare = nbrOfSquare(LENGTH, HEIGHT);
-    for(int k=0; k < nbrSquare; k++)
-    {
-        if(validSquare(grid, k)==false)
-        {
-            return false;
-        }
-    }
-    return true;
-}
-
-
-// bool validGrid(T_gridF grid)
+// void setNote(int* cell, int numNote)
 // {
-//     for(int i=0; i)
+//     int mask = 1<<numNote;
+//     cell = cell|mask;
 // }

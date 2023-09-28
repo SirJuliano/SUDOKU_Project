@@ -1,21 +1,17 @@
 #ifndef GRILLE_H_INCLUDED
 #define GRILLE_H_INCLUDED
 
+typedef int ** T_grid;
 
-//typedef T_box ** T_grid;
-typedef int ** T_gridF;
 
-// T_grid createGrid(int largeur, int hauteur);
-int areaOfSquare(int largeur, int hauteur);
-int inSquare(int poslenght, int posheight);
-// void fillGrid(T_grid grid, int largeur, int hauteur);
+T_grid createGrid(int length);                                                 //allocation de la memoire nécéssaire pour un tableau à deux dimensions
+void initGrid(T_grid grid, int length);                                        //initialise toutes les cases de la grille à 0
 
-// void show_grid(T_grid grid, int size);
-T_gridF finalGrid(int largeur, int hauteur);
-void initGrid(T_gridF grid,int lenght, int height);
-T_gridF add_Value(T_gridF gridF, int pos_line, int pos_column, int value);
-T_gridF deleteAvalue (T_gridF gridF, int pos_line, int pos_column);
-void Show_grid_final (T_gridF gridF, int sizel);
-void freeGrid(T_gridF grid, int sizel);
+T_grid add_Value(T_grid grid, int pos_line, int pos_column, int value);      //ajoute une valeur dans la case souhaitee
+T_grid deleteAvalue(T_grid grid, int pos_line, int pos_column);              //supprime la valeur de la case
+int getVal(T_grid grid, int x, int y);                                          //renvoie la chiffre de la case x, y
+void Show_grid(T_grid grid, int length);                                      //affiche la grille
+
+void freeGrid(T_grid grid, int length);                                        //libère la mémoire allouée pour la grille
 
 #endif // GRILLE_H_INCLUDED

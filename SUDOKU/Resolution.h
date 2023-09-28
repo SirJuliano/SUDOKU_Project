@@ -1,16 +1,19 @@
 #ifndef RESOLUTION_H_INCLUDED
 #define RESOLUTION_H_INCLUDED
 
-#include "Grille.h"
 #include <stdbool.h>
 
-bool validColumn(T_gridF grid, int posLargeur);
-bool validLine (T_gridF grid, int posHeight);
-bool validSquare(T_gridF grid, int square);
-bool validGrid(T_gridF grid);
+#include "Grille.h"
 
-#define LENGTH 9
-#define HEIGHT 9
+bool verifCase(bool *res, int val);                             //fonction qui vérifie si la valeur val est déjà apparue dans la ligne/case/colonne
+bool gridVerif(T_grid grid, int X1, int X2, int Y1, int Y2);   //fonction qui vérifie si la colonne/case/ligne ne posède pas plusieurs chiffre identiques
+
+bool verifLine(T_grid grid, int x, int length);                 //fonction vérifiant la validité d'une ligne
+bool verifColumn(T_grid grid, int y, int length);               //fonction vérifiant la validité d'une colonne
+bool verifSquare(T_grid grid, int x, int y, int length);        //fonction vérifiant la validité d'un carré
+
+bool verifGrid(T_grid grid, int length);                                   //fonction vérifiant la validité de la grille complète
+// void setNote(int* cell, int numNote)
 
 
 #endif // RESOLUTION_H_INCLUDED
