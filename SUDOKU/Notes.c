@@ -14,7 +14,7 @@
         for(int y = 0; y<length; y++)
         {
             grid[x][y].notes=511;
-      }
+        }
     }
 }
 */
@@ -107,8 +107,8 @@ void printBinary2(Box cell) {
 //     }
 // }
 
-int getvalNote(Box *cell){
-    switch (cell->notes) {
+int getvalNote(int note){
+    switch (note) {
         case 1: return 1;
         case 2: return 2;
         case 4: return 3;
@@ -146,11 +146,12 @@ int getvalNote(Box *cell){
     }
 }
 
-bool oneNoteLeft (Box *cell)
+bool oneNoteLeft (int note)
 {
-    if (getvalNote(cell->notes == -1))
+    if (getvalNote(note == -1))
         return false;
     else
         return true;
 }
+
 

@@ -131,31 +131,86 @@ void completeArea(T_grid grid, int X1, int X2, int Y1, int Y2)  //regle 1
 
 void rule_1and3 (T_grid grid, int sizet)
 {
-    for (int i = 0; i < sizet; i++)
+    for (int x = 0; x < sizet; x++)
     {
-        for (int j = 0; j < sizet; j++)
+        for (int y = 0; y < sizet; y++)
         {
-            if (!caseVide(&grid[i][j]))
+            if (caseVide(&grid[x][y]))
             {
-                if (oneNoteLeft(&grid[i][j]))
+                if (oneNoteLeft(grid[x][y].notes))
                 {
-                    add_Value(grid, i, j, getvalNote(&grid[i][j]));
+                    add_Value(grid, x, y, getvalNote(grid[x][y].notes));
                 }  
             }
         }
     }
 }
-for (int i = 0; i < sizet; i++)
+
+void rule_2 (T_grid grid, int sizet)
+{
+    for (int x = 0; x < sizet; x++)
     {
- 
-    int        for (int j = 0; j < sizet; j++)
+        for (int y = 0; y < sizet; y++)
         {
-            if (!caseVide(&grid[i][j]))
+            if (caseVide(&grid[x][y]))
             {
-                if (oneNoteLeft(&grid[i][j]))
-                {
-                    add_Value(grid, i, j, getvalNote(&grid[i][j]));
-                }  
+                int tmp = grid[x][y].notes;
+                rule_2_line(grid, sizet, x, y, tmp);
+                rule_2_column(grid, sizet, x, y, tmp);
+                rule_2_square(grid, sizet, x, y, tmp);
             }
         }
     }
+}
+
+void rule_2_line(T_grid grid, int sizet, int X, int Y, int tmp)
+{
+    for (int y = 0; y < Y; y++)
+    {
+        if ((caseVide(&grid[X][y])) && (y != Y))
+        {
+            tmp = tmp & ~(grid[X][y].notes);
+        }
+    }
+    if (oneNoteLeft(tmp))
+    {
+        add_Value(grid, X, Y, getvalNote(tmp));
+    }
+}
+
+void rule_2_column (T_grid grid, int sizet, int X, int Y, int tmp)
+{
+    for (int x = 0; x < sizet; x++)
+    {
+        if ((caseVide(&grid[x][Y])) && (x != X))
+        {
+            tmp = tmp & ~(grid[x][Y].notes);
+        }
+    }
+    if (oneNoteLeft(tmp))
+    {
+        add_Value(grid, X, Y, getvalNote(tmp));
+    }
+}
+
+void rule_2_square(T_grid grid, int sizet, int X, int Y, int tmp)
+{
+    int nbr = sqrt(sizet);                //nombre de carré par ligne/colonne
+    int xs = (X / nbr) * nbr;
+    int ys = (Y / nbr) * nbr;
+    for (int x = xs; x < xs + nbr; x++)
+    {
+        for (int y = ys; y < ys + nbr; y++)
+        {
+            if ((caseVide(&grid[x][Y])) && (x != X) && (y != Y))
+            {
+                tmp = tmp & ~(grid[X][y].notes);
+            }
+        }
+        
+    }
+    if (oneNoteLeft(tmp))
+    {
+        add_Value(grid, X, Y, getvalNote(tmp));
+    }
+}
