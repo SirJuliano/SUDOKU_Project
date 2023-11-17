@@ -13,6 +13,7 @@ bool verifColumn(T_grid grid, int y, int length);               //fonction véri
 bool verifSquare(T_grid grid, int x, int y, int length);        //fonction vérifiant la validité d'un carré
 
 bool verifGrid(T_grid grid, int length);                                   //fonction vérifiant la validité de la grille complète
+void completeArea(T_grid grid, int X1, int X2, int Y1, int Y2);
 // void setNote(int* cell, int numNote)
 
 

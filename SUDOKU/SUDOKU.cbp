@@ -35,6 +35,10 @@
 			<Option compilerVar="CC" />
 		</Unit>
 		<Unit filename="Grille.h" />
+		<Unit filename="Notes.c">
+			<Option compilerVar="CC" />
+		</Unit>
+		<Unit filename="Notes.h" />
 		<Unit filename="Resolution.c">
 			<Option compilerVar="CC" />
 		</Unit>

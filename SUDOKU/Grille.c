@@ -4,15 +4,16 @@
 #include <math.h>
 
 #include "Grille.h"
-
+#include "Notes.h"
+int power_2_n[] = {1,2,4,8,16,32,64,128,256,512};
 //allocation de la memoire nécéssaire pour un tableau à deux dimensions
 T_grid createGrid(int length)
 {
     T_grid grid;
-    grid = (T_grid)malloc(sizeof(int*) * length);
+    grid = (T_grid)malloc(sizeof(Box*) * length);
     for (int i=0; i<length; i++)
     {
-        grid[i] = (int*)malloc(sizeof(int) * length);
+        grid[i] = (Box*)malloc(sizeof(Box) * length);
     }
     return grid;  //tab2d representant la grille
 }
@@ -20,11 +21,16 @@ T_grid createGrid(int length)
 //initialise toutes les cases de la grille à 0
 void initGrid(T_grid grid, int length)
 {
+    printf("LANCE INIT\n");
     for (int i=0; i<length; i++)
     {
+        printf("PREMIERE BOUCLE\n");
         for (int j=0; j<length; j++)
         {
-            grid[i][j] = 0;
+            grid[i][j].notes = 511;
+            printf("INIT NOTE\n"); //METTRE INIT_NOTES
+            grid[i][j].value = 0;
+            printf("INIT VALUE\n");
         }
     }
 }
@@ -33,21 +39,25 @@ void initGrid(T_grid grid, int length)
 //ajoute une valeur dans la case souhaitee
 T_grid add_Value(T_grid grid, int pos_line, int pos_column, int value)
 {
-    grid[pos_line][pos_column] = value;
+    grid[pos_line][pos_column].value = value;
+    //printf("a l'emplaccement %d,%d j'ajoute %d \n\n", pos_line, pos_column, value);
+    setVal(grid, pos_line, pos_column, 9, value);
+
+
     return grid;
 }
 
 //supprime la valeur de la case
 T_grid deleteAvalue(T_grid grid, int pos_line, int pos_column)
 {
-    grid[pos_line][pos_column] = 0;
+    grid[pos_line][pos_column].value = 0;
     return grid;
 }
 
 //renvoie la chiffre de la case x, y
 int getVal(T_grid grid, int x, int y)
 {
-    return grid[x][y];
+    return grid[x][y].value;
 }
 
 // affiche la grille
@@ -68,9 +78,9 @@ void Show_grid(T_grid grid, int length)
             {
                 if (col % sizeSquare == sizeSquare - 1)
                 {
-                    if (grid[lin][col] != 0)
+                    if (grid[lin][col].value != 0)
                     {
-                        printf(" %d ||",(grid[lin][col]));
+                        printf(" %d ||",(grid[lin][col].value));
                     }
                     else
                     {
@@ -79,9 +89,9 @@ void Show_grid(T_grid grid, int length)
                 }
                 else
                 {
-                    if (grid[lin][col] != 0)
+                    if (grid[lin][col].value != 0)
                     {
-                        printf(" %d |",(grid[lin][col]));
+                        printf(" %d |",(grid[lin][col].value));
                     }
                     else
                     {
@@ -102,9 +112,9 @@ void Show_grid(T_grid grid, int length)
             {
                 if (col % sizeSquare == sizeSquare - 1)
                 {
-                    if (grid[lin][col] != 0)
+                    if (grid[lin][col].value != 0)
                     {
-                        printf(" %d ||",(grid[lin][col]));
+                        printf(" %d ||",(grid[lin][col].value));
                     }
                     else
                     {
@@ -113,9 +123,9 @@ void Show_grid(T_grid grid, int length)
                 }
                 else
                 {
-                    if (grid[lin][col] != 0)
+                    if (grid[lin][col].value != 0)
                     {
-                        printf(" %d |",(grid[lin][col]));
+                        printf(" %d |",(grid[lin][col].value));
                     }
                     else
                     {

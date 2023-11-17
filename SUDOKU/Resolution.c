@@ -3,8 +3,10 @@
 #include <stdbool.h>
 #include <math.h>
 
+
 #include "Grille.h"
 #include "Resolution.h"
+#include "Notes.h"
 
 //fonction qui vérifie si la valeur val est déjà apparue dans la ligne/case/colonne
 bool verifCase(bool *res, int val)
@@ -31,7 +33,7 @@ bool gridVerif(T_grid grid, int X1, int X2, int Y1, int Y2)
         {
             if(getVal(grid, X, Y)!=0)
             {
-                if (verifCase(res, getVal(grid, X, Y)) == false)
+                if (verifCase(res, getVal(grid, X, Y)))
                 {
                     return false;
                 }
@@ -84,9 +86,72 @@ bool verifGrid(T_grid grid, int length)
     return true;
 }
 
+/*
+void completeArea(T_grid grid, int X1, int X2, int Y1, int Y2)  //regle 1
+{
+    int compteur = 0;
+    int x = 0 ;
+    int y = 0 ;
+    int size = (X2 - X1 + 1) * (Y2 - Y1 + 1);
+    bool tab[size];        //tableau de booléens initialisé a 0 avec autant de cases que de nombres à tester
+    //pour les chiffres de 1 à 9, il y aura 9 cases
+    for(int X = X1; X <= X2 ; X++)
+    {
+        for(int Y = Y1; Y <= Y2; Y++)
+        {
+            if(compteur > 1)
+            {
+                break;
+            }
+            if(getVal(grid, X, Y)!=0)
+            {
+                tab[getVal(grid, X, Y)-1] = 1;
 
-// void setNote(int* cell, int numNote)
-// {
-//     int mask = 1<<numNote;
-//     cell = cell|mask;
-// }
+            }
+            else
+            {
+
+                compteur ++;
+                x = X;
+                y = Y;
+            }
+
+        }
+    }
+    if(compteur == 1){
+        for(int i = 0; i<size; i++){
+            if(tab[i] == 0){
+                add_Value(grid,x, y, i+1);
+            }
+        }
+    }
+}
+*/
+void completeArea(T_grid grid, int X1, int X2, int Y1, int Y2)  //regle 1
+{
+    int compteur = 0;
+    int x = 0 ;
+    int y = 0 ;
+    int size = (X2 - X1 + 1) * (Y2 - Y1 + 1);
+    bool tab[size];        //tableau de booléens initialisé a 0 avec autant de cases que de nombres à tester
+    //pour les chiffres de 1 à 9, il y aura 9 cases
+    for(int X = X1; X <= X2 ; X++) {
+        for (int Y = Y1; Y <= Y2; Y++) {
+            if (compteur > 1) {
+                break;
+            }
+            if (getVal(grid, X, Y) == 0) {
+                x = X;
+                y = Y;
+                compteur++;
+            }
+        }
+    }
+    if(compteur == 1)
+    {
+        add_Value(grid,x, y,getvalNote(&grid[x][y]));
+        printf("jajoute la valeur : %d a la place x : %d, y : %d", getvalNote(&grid[x][y]), x, y);
+    }
+}
+
+
