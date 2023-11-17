@@ -18,4 +18,6 @@ void printBinary2(Box cell);
 void printBinary(int num);
 
 int getvalNote(Box *cell);
+bool oneNoteLeft (Box *cell);
+
 #endif //SUDOKU_PROJECT_ERREUR_ANTOINE_NOTES_H

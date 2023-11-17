@@ -21,16 +21,13 @@ T_grid createGrid(int length)
 //initialise toutes les cases de la grille à 0
 void initGrid(T_grid grid, int length)
 {
-    printf("LANCE INIT\n");
+    
     for (int i=0; i<length; i++)
     {
-        printf("PREMIERE BOUCLE\n");
         for (int j=0; j<length; j++)
         {
             grid[i][j].notes = 511;
-            printf("INIT NOTE\n"); //METTRE INIT_NOTES
             grid[i][j].value = 0;
-            printf("INIT VALUE\n");
         }
     }
 }
@@ -151,4 +148,12 @@ void freeGrid(T_grid grid, int length)
         free(grid[i]);
     }
     free(grid);
+}
+
+bool caseVide(Box *cell)
+{
+    if (cell->value == 0)
+        return true;
+    else
+        return false;
 }

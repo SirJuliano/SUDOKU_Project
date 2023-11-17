@@ -4,10 +4,7 @@
 #include <math.h>
 
 #include "Grille.h"
-/*
-Le set note 0 ne fonctionne pas
-Maintenant il fonctionne mais mal, il faudra voir ou ça foire, montrer aux autres avec exemple
-*/
+
 
 
 /*void initNote(T_grid grid, int length)
@@ -17,7 +14,7 @@ Maintenant il fonctionne mais mal, il faudra voir ou ça foire, montrer aux autr
         for(int y = 0; y<length; y++)
         {
             grid[x][y].notes=511;
-        }
+      }
     }
 }
 */
@@ -27,21 +24,20 @@ void setNote1(Box *cell, int numNote)
     cell->notes = cell->notes | mask;
 }
 
-void setNote1_v2(int *num, int numNote)
-{
-    int mask = 1 << (numNote-1);
-    *num = *num | mask;
-}
+// void setNote1_v2(int *num, int numNote)
+// {
+//     int mask = 1 << (numNote-1);
+//     *num = *num | mask;
+// }
 
-void setNote0(Box *cell, int numNote)
-{
+void setNote0(Box *cell, int numNote){
     int mask = 1 << (numNote-1);
-    cell->notes = cell->notes & ~mask ;
+    cell->notes = cell->notes & ~mask ;  //notetmp = notetmp &~casedeuxvide
 }
-void setNote0_v2(int *cell, int numNote) {
-    int mask = 1 << (numNote - 1);
-    *cell = *cell & ~mask;
-}
+// void setNote0_v2(int *cell, int numNote) {
+//     int mask = 1 << (numNote - 1);
+//     *cell = *cell & ~mask;
+// }
 
 
 void setNote0Line(T_grid grid, int x, int y, int length, int numNote)
@@ -87,8 +83,8 @@ void setNote0Square(T_grid grid, int x, int y, int length, int numNote)
 void setVal(T_grid grid, int x, int y,int length, int numNote)
 {
     setNote0Line(grid, x, y, length, numNote);
-    setNote0Column(grid, x,y, length, numNote);
-    setNote0Square(grid, x,y, length, numNote);
+    setNote0Column(grid, x, y, length, numNote);
+    setNote0Square(grid, x, y, length, numNote);
 
 }
 
@@ -104,47 +100,57 @@ void printBinary2(Box cell) {
     }
 }
 
-void printBinary(int num) {
-    printf("Jai fait mon atf \n");
-    for (int i = sizeof(int) * 8 - 1; i >= 0; i--) {
-        printf("%d", (num & (1 << i)) ? 1 : 0);
-    }
-}
+// void printBinary(int num) {
+//     printf("Jai fait mon atf \n");
+//     for (int i = sizeof(int) * 8 - 1; i >= 0; i--) {
+//         printf("%d", (num & (1 << i)) ? 1 : 0);
+//     }
+// }
 
 int getvalNote(Box *cell){
     switch (cell->notes) {
-        case 0x1: return 1;
-        case 0x2: return 2;
-        case 0x4: return 3;
-        case 0x8: return 4;
-        case 0x10: return 5;
-        case 0x20 : return 6;
-        case 0x40 : return 7;
-        case 0x80 : return 8;
-        case 0x100 : return 9;/*
-        case 0x : return 10;
-        case 0x : return 11;
-        case 0x : return 12;
-        case 0x : return 13;
-        case 0x : return 14;
-        case 0x : return 15;
-        case 0x : return 16;
-        case 0x : return 17;
-        case 0x : return 18;
-        case 0x : return 19;
-        case 0x : return 20;
-        case 0x : return 21;
-        case 0x : return 22;
-        case 0x : return 23;
-        case 0x : return 24;
-        case 0x : return 25;
-        case 0x : return 26;
-        case 0x : return 27;
-        case 0x : return 28;
-        case 0x : return 29;
-        case 0x : return 30;
-        case 0x : return 31;
-        case 0x : return 32;*/
+        case 1: return 1;
+        case 2: return 2;
+        case 4: return 3;
+        case 8: return 4;
+        case 16: return 5;
+        case 32 : return 6;
+        case 64 : return 7;
+        case 128 : return 8;
+        case 256 : return 9;
+        case 512 : return 10;
+        case 1024 : return 11;
+        case 2048 : return 12;
+        case 4096 : return 13;
+        case 8192 : return 14;
+        case 16384 : return 15;
+        case 32768 : return 16;
+        case 65536 : return 17;
+        case 131072 : return 18;
+        case 262144 : return 19;
+        case 524288 : return 20;
+        case 1048576 : return 21;
+        case 2097152 : return 22;
+        case 4194304 : return 23;
+        case 8388608 : return 24;
+        case 16777216 : return 25;
+        default : return -1;
+        // case 33554432 : return 26;
+        // case 67108864 : return 27;
+        // case 134217728 : return 28;
+        // case 268435456 : return 29;
+        // case 536870912 : return 30;
+        // case 1073741824 : return 31;
+        // case 2147483648 : return 32;
         
     }
 }
+
+bool oneNoteLeft (Box *cell)
+{
+    if (getvalNote(cell->notes == -1))
+        return false;
+    else
+        return true;
+}
+

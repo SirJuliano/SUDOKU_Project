@@ -127,31 +127,35 @@ void completeArea(T_grid grid, int X1, int X2, int Y1, int Y2)  //regle 1
     }
 }
 */
-void completeArea(T_grid grid, int X1, int X2, int Y1, int Y2)  //regle 1
+
+
+void rule_1and3 (T_grid grid, int sizet)
 {
-    int compteur = 0;
-    int x = 0 ;
-    int y = 0 ;
-    int size = (X2 - X1 + 1) * (Y2 - Y1 + 1);
-    bool tab[size];        //tableau de booléens initialisé a 0 avec autant de cases que de nombres à tester
-    //pour les chiffres de 1 à 9, il y aura 9 cases
-    for(int X = X1; X <= X2 ; X++) {
-        for (int Y = Y1; Y <= Y2; Y++) {
-            if (compteur > 1) {
-                break;
-            }
-            if (getVal(grid, X, Y) == 0) {
-                x = X;
-                y = Y;
-                compteur++;
+    for (int i = 0; i < sizet; i++)
+    {
+        for (int j = 0; j < sizet; j++)
+        {
+            if (!caseVide(&grid[i][j]))
+            {
+                if (oneNoteLeft(&grid[i][j]))
+                {
+                    add_Value(grid, i, j, getvalNote(&grid[i][j]));
+                }  
             }
         }
     }
-    if(compteur == 1)
-    {
-        add_Value(grid,x, y,getvalNote(&grid[x][y]));
-        printf("jajoute la valeur : %d a la place x : %d, y : %d", getvalNote(&grid[x][y]), x, y);
-    }
 }
-
-
+for (int i = 0; i < sizet; i++)
+    {
+ 
+    int        for (int j = 0; j < sizet; j++)
+        {
+            if (!caseVide(&grid[i][j]))
+            {
+                if (oneNoteLeft(&grid[i][j]))
+                {
+                    add_Value(grid, i, j, getvalNote(&grid[i][j]));
+                }  
+            }
+        }
+    }
