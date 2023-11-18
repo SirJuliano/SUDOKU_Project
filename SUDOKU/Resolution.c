@@ -131,16 +131,19 @@ void completeArea(T_grid grid, int X1, int X2, int Y1, int Y2)  //regle 1
 
 void rule_1and3 (T_grid grid, int sizet)
 {
+    int i = 0;
     for (int x = 0; x < sizet; x++)
     {
         for (int y = 0; y < sizet; y++)
         {
+
             if (caseVide(&grid[x][y]))
             {
+                i++;
                 if (oneNoteLeft(grid[x][y].notes))
                 {
-                    add_Value(grid, x, y, getvalNote(grid[x][y].notes));
-                }  
+                    grid = add_Value(grid, x, y, getvalNote(grid[x][y].notes));
+                }
             }
         }
     }
@@ -165,7 +168,7 @@ void rule_2 (T_grid grid, int sizet)
 
 void rule_2_line(T_grid grid, int sizet, int X, int Y, int tmp)
 {
-    for (int y = 0; y < Y; y++)
+    for (int y = 0; y < sizet; y++)
     {
         if ((caseVide(&grid[X][y])) && (y != Y))
         {
@@ -174,7 +177,7 @@ void rule_2_line(T_grid grid, int sizet, int X, int Y, int tmp)
     }
     if (oneNoteLeft(tmp))
     {
-        add_Value(grid, X, Y, getvalNote(tmp));
+        grid = add_Value(grid, X, Y, getvalNote(tmp));
     }
 }
 
@@ -189,7 +192,7 @@ void rule_2_column (T_grid grid, int sizet, int X, int Y, int tmp)
     }
     if (oneNoteLeft(tmp))
     {
-        add_Value(grid, X, Y, getvalNote(tmp));
+        grid = add_Value(grid, X, Y, getvalNote(tmp));
     }
 }
 
@@ -207,10 +210,10 @@ void rule_2_square(T_grid grid, int sizet, int X, int Y, int tmp)
                 tmp = tmp & ~(grid[X][y].notes);
             }
         }
-        
+
     }
     if (oneNoteLeft(tmp))
     {
-        add_Value(grid, X, Y, getvalNote(tmp));
+        grid = add_Value(grid, X, Y, getvalNote(tmp));
     }
 }

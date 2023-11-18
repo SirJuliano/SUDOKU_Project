@@ -142,3 +142,45 @@
 	<math.h>
 	"Grille.h"
 
+1700267985 source:c:\users\julie\downloads\sudoku_project-alllllleeeeeeerrrrrrrrrr\sudoku_project-alllllleeeeeeerrrrrrrrrr\sudoku\grille.c
+	<stdio.h>
+	<stdlib.h>
+	<stdbool.h>
+	<math.h>
+	"Grille.h"
+	"Notes.h"
+
+1700267027 c:\users\julie\downloads\sudoku_project-alllllleeeeeeerrrrrrrrrr\sudoku_project-alllllleeeeeeerrrrrrrrrr\sudoku\grille.h
+
+1700267608 c:\users\julie\downloads\sudoku_project-alllllleeeeeeerrrrrrrrrr\sudoku_project-alllllleeeeeeerrrrrrrrrr\sudoku\notes.h
+	"Grille.h"
+
+1700270145 source:c:\users\julie\downloads\sudoku_project-alllllleeeeeeerrrrrrrrrr\sudoku_project-alllllleeeeeeerrrrrrrrrr\sudoku\main.c
+	<stdio.h>
+	<stdlib.h>
+	<stdbool.h>
+	<math.h>
+	"Grille.h"
+	"Resolution.h"
+	"Notes.h"
+
+1700267528 c:\users\julie\downloads\sudoku_project-alllllleeeeeeerrrrrrrrrr\sudoku_project-alllllleeeeeeerrrrrrrrrr\sudoku\resolution.h
+	<stdbool.h>
+	"Grille.h"
+
+1700268659 source:c:\users\julie\downloads\sudoku_project-alllllleeeeeeerrrrrrrrrr\sudoku_project-alllllleeeeeeerrrrrrrrrr\sudoku\notes.c
+	<stdio.h>
+	<stdlib.h>
+	<stdbool.h>
+	<math.h>
+	"Grille.h"
+
+1700270103 source:c:\users\julie\downloads\sudoku_project-alllllleeeeeeerrrrrrrrrr\sudoku_project-alllllleeeeeeerrrrrrrrrr\sudoku\resolution.c
+	<stdio.h>
+	<stdlib.h>
+	<stdbool.h>
+	<math.h>
+	"Grille.h"
+	"Resolution.h"
+	"Notes.h"
+

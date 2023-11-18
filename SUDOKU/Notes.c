@@ -30,7 +30,8 @@ void setNote1(Box *cell, int numNote)
 //     *num = *num | mask;
 // }
 
-void setNote0(Box *cell, int numNote){
+void setNote0(Box *cell, int numNote)
+{
     int mask = 1 << (numNote-1);
     cell->notes = cell->notes & ~mask ;  //notetmp = notetmp &~casedeuxvide
 }
@@ -88,14 +89,17 @@ void setVal(T_grid grid, int x, int y,int length, int numNote)
 
 }
 
-int getNote(Box *cell, int numNote) {
+int getNote(Box *cell, int numNote)
+{
     int mask = 1 << (numNote - 1);
     return (cell->notes & mask) != 0;
 }
 
-void printBinary2(Box cell) {
+void printBinary2(Box cell)
+{
     printf("Jai fait mon atf \n");
-    for (int i = sizeof(int) * 8 - 1; i >= 0; i--) {
+    for (int i = sizeof(int) * 8 - 1; i >= 0; i--)
+    {
         printf("%d", (cell.notes & (1 << i)) ? 1 : 0);
     }
 }
@@ -107,34 +111,62 @@ void printBinary2(Box cell) {
 //     }
 // }
 
-int getvalNote(int note){
-    switch (note) {
-        case 1: return 1;
-        case 2: return 2;
-        case 4: return 3;
-        case 8: return 4;
-        case 16: return 5;
-        case 32 : return 6;
-        case 64 : return 7;
-        case 128 : return 8;
-        case 256 : return 9;
-        case 512 : return 10;
-        case 1024 : return 11;
-        case 2048 : return 12;
-        case 4096 : return 13;
-        case 8192 : return 14;
-        case 16384 : return 15;
-        case 32768 : return 16;
-        case 65536 : return 17;
-        case 131072 : return 18;
-        case 262144 : return 19;
-        case 524288 : return 20;
-        case 1048576 : return 21;
-        case 2097152 : return 22;
-        case 4194304 : return 23;
-        case 8388608 : return 24;
-        case 16777216 : return 25;
-        default : return -1;
+int getvalNote(int note)
+{
+    switch (note)
+    {
+    case 1:
+        return 1;
+    case 2:
+        return 2;
+    case 4:
+        return 3;
+    case 8:
+        return 4;
+    case 16:
+        return 5;
+    case 32 :
+        return 6;
+    case 64 :
+        return 7;
+    case 128 :
+        return 8;
+    case 256 :
+        return 9;
+    case 512 :
+        return 10;
+    case 1024 :
+        return 11;
+    case 2048 :
+        return 12;
+    case 4096 :
+        return 13;
+    case 8192 :
+        return 14;
+    case 16384 :
+        return 15;
+    case 32768 :
+        return 16;
+    case 65536 :
+        return 17;
+    case 131072 :
+        return 18;
+    case 262144 :
+        return 19;
+    case 524288 :
+        return 20;
+    case 1048576 :
+        return 21;
+    case 2097152 :
+        return 22;
+    case 4194304 :
+        return 23;
+    case 8388608 :
+        return 24;
+    case 16777216 :
+        return 25;
+    default :
+        return -1;
         // case 33554432 : return 26;
         // case 67108864 : return 27;
         // case 134217728 : return 28;
@@ -142,13 +174,13 @@ int getvalNote(int note){
         // case 536870912 : return 30;
         // case 1073741824 : return 31;
         // case 2147483648 : return 32;
-        
+
     }
 }
 
 bool oneNoteLeft (int note)
 {
-    if (getvalNote(note == -1))
+    if (getvalNote(note) == -1) //ENGUEULER CE PTIT CON DE TEO, tu avais écrit : if (getValNote(note == -1)) #trouvel'erreur
         return false;
     else
         return true;

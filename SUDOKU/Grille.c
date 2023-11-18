@@ -21,7 +21,7 @@ T_grid createGrid(int length)
 //initialise toutes les cases de la grille à 0
 void initGrid(T_grid grid, int length)
 {
-    
+
     for (int i=0; i<length; i++)
     {
         for (int j=0; j<length; j++)
@@ -152,7 +152,7 @@ void freeGrid(T_grid grid, int length)
 
 bool caseVide(Box *cell)
 {
-    if (cell->value == 0)
+    if ((*cell).value == 0)
         return true;
     else
         return false;
