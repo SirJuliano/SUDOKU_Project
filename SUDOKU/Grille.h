@@ -1,6 +1,5 @@
 #ifndef GRILLE_H_INCLUDED
 #define GRILLE_H_INCLUDED
-//typedef int ** T_grid;
 
 typedef struct
 {
@@ -18,6 +17,6 @@ int getVal(T_grid grid, int x, int y);                                          
 void Show_grid(T_grid gridF, int length);                                      //affiche la grille
 
 void freeGrid(T_grid grid, int length);                                        //libère la mémoire allouée pour la grille
-bool caseVide(Box *cell);
+bool caseVide(Box *cell);                                                      //Indique si la case est vide
 
 #endif // GRILLE_H_INCLUDED

@@ -18,30 +18,21 @@
     }
 }
 */
-void setNote1(Box *cell, int numNote)
+void setNote1(Box *cell, int numNote)   //Met à 1 le bit "numNote" de la note contenue dans "*cell"
 {
     int mask = 1 << (numNote-1);
     cell->notes = cell->notes | mask;
 }
 
-// void setNote1_v2(int *num, int numNote)
-// {
-//     int mask = 1 << (numNote-1);
-//     *num = *num | mask;
-// }
-
-void setNote0(Box *cell, int numNote)
+void setNote0(Box *cell, int numNote)   //Met à 0 le bit "numNote" de la note contenue dans "*cell"
 {
     int mask = 1 << (numNote-1);
     cell->notes = cell->notes & ~mask ;  //notetmp = notetmp &~casedeuxvide
 }
-// void setNote0_v2(int *cell, int numNote) {
-//     int mask = 1 << (numNote - 1);
-//     *cell = *cell & ~mask;
-// }
 
 
-void setNote0Line(T_grid grid, int x, int y, int length, int numNote)
+
+void setNote0Line(T_grid grid, int x, int y, int length, int numNote) //Met à 0 le bit "numNote" des notes de toutes les cases de la ligne
 {
     for(int i = 0; i<length; i++)
     {
@@ -52,7 +43,7 @@ void setNote0Line(T_grid grid, int x, int y, int length, int numNote)
     }
 }
 
-void setNote0Column(T_grid grid, int x, int y, int length, int numNote)
+void setNote0Column(T_grid grid, int x, int y, int length, int numNote) //Met à 0 le bit "numNote" des notes de toutes les cases de la colonne
 {
     for(int i = 0; i<length; i++)
     {
@@ -63,7 +54,7 @@ void setNote0Column(T_grid grid, int x, int y, int length, int numNote)
     }
 }
 
-void setNote0Square(T_grid grid, int x, int y, int length, int numNote)
+void setNote0Square(T_grid grid, int x, int y, int length, int numNote) //Met à 0 le bit "numNote" des notes de toutes les cases du bloc
 {
     int nbr = sqrt(length);                //nombre de carré par ligne/colonne
     int xs = (x / nbr) * nbr;
@@ -81,7 +72,7 @@ void setNote0Square(T_grid grid, int x, int y, int length, int numNote)
     }
 }
 
-void setVal(T_grid grid, int x, int y,int length, int numNote)
+void setNote0Zone(T_grid grid, int x, int y,int length, int numNote) //Applique ensembles les 3 précédentes fonctions
 {
     setNote0Line(grid, x, y, length, numNote);
     setNote0Column(grid, x, y, length, numNote);
@@ -89,20 +80,20 @@ void setVal(T_grid grid, int x, int y,int length, int numNote)
 
 }
 
-int getNote(Box *cell, int numNote)
-{
-    int mask = 1 << (numNote - 1);
-    return (cell->notes & mask) != 0;
-}
+// int getNote(Box *cell, int numNote) 
+// {
+//     int mask = 1 << (numNote - 1);
+//     return (cell->notes & mask) != 0;
+// }
 
-void printBinary2(Box cell)
-{
-    printf("Jai fait mon atf \n");
-    for (int i = sizeof(int) * 8 - 1; i >= 0; i--)
-    {
-        printf("%d", (cell.notes & (1 << i)) ? 1 : 0);
-    }
-}
+// void printBinary2(Box cell)
+// {
+//     printf("Jai fait mon atf \n");
+//     for (int i = sizeof(int) * 8 - 1; i >= 0; i--)
+//     {
+//         printf("%d", (cell.notes & (1 << i)) ? 1 : 0);
+//     }
+// }
 
 // void printBinary(int num) {
 //     printf("Jai fait mon atf \n");
@@ -111,7 +102,7 @@ void printBinary2(Box cell)
 //     }
 // }
 
-int getvalNote(int note)
+int getvalNote(int note) //renvois la version décimal de la note
 {
     switch (note)
     {
@@ -167,20 +158,12 @@ int getvalNote(int note)
         return 25;
     default :
         return -1;
-        // case 33554432 : return 26;
-        // case 67108864 : return 27;
-        // case 134217728 : return 28;
-        // case 268435456 : return 29;
-        // case 536870912 : return 30;
-        // case 1073741824 : return 31;
-        // case 2147483648 : return 32;
-
     }
 }
 
-bool oneNoteLeft (int note)
+bool oneNoteLeft (int note) //verifie qu'il n'y ai plus qu'une valeur possible sur une case
 {
-    if (getvalNote(note) == -1) //ENGUEULER CE PTIT CON DE TEO, tu avais écrit : if (getValNote(note == -1)) #trouvel'erreur
+    if (getvalNote(note) == -1) 
         return false;
     else
         return true;

@@ -14,12 +14,12 @@ bool verifSquare(T_grid grid, int x, int y, int length);        //fonction véri
 
 bool verifGrid(T_grid grid, int length);                        //fonction vérifiant la validité de la grille complète
 // void setNote(int* cell, int numNote)
-bool found_rule_1and3;
-void rule_1and3 (T_grid grid, int sizet);
-bool found_rule_2 ;
+bool found_rule_1and3;                                          //Variable vérifiant si la fonction "rule_1and3" à trouvé une solution
+void rule_1and3 (T_grid grid, int sizet);                       //fonction appliquant les règles de résolution 1 et 3
+bool found_rule_2 ;                                             //Variable vérifiant si la fonction "rule_2" à trouvé une solution
 void rule_2 (T_grid grid, int sizet);
-bool rule_2_line(T_grid grid, int sizet, int X, int Y, int tmp);
-bool rule_2_column (T_grid grid, int sizet, int X, int Y, int tmp);
-bool rule_2_square(T_grid grid, int sizet, int X, int Y, int tmp);
-void run_rules (T_grid grid, int sizet);
+bool rule_2_line(T_grid grid, int sizet, int X, int Y, int tmp);//Focntion appliquant la règle de résolution 2
+bool rule_2_column (T_grid grid, int sizet, int X, int Y, int tmp);//fonction appliquant rule_2 à une colonne
+bool rule_2_square(T_grid grid, int sizet, int X, int Y, int tmp);//fonction appliquant rule_2 à un bloc
+void run_rules (T_grid grid, int sizet);                        //fonction appliquant rule_2 à une ligne
 #endif // RESOLUTION_H_INCLUDED

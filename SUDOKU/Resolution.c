@@ -22,7 +22,7 @@ bool verifCase(bool *res, int val)
     return true;
 }
 
-//fonction qui vérifie si la colonne/case/ligne ne posède pas plusieurs chiffre identiques
+//fonction qui vérifie si la colonne/case/ligne ne possède pas plusieurs chiffre identiques
 bool gridVerif(T_grid grid, int X1, int X2, int Y1, int Y2, int lenght)
 {
     bool res[(X2 - X1+1) * (Y2 - Y1)+1];
@@ -92,50 +92,11 @@ bool verifGrid(T_grid grid, int length)
     return true;
 }
 
-/*
-void completeArea(T_grid grid, int X1, int X2, int Y1, int Y2)  //regle 1
-{
-    int compteur = 0;
-    int x = 0 ;
-    int y = 0 ;
-    int size = (X2 - X1 + 1) * (Y2 - Y1 + 1);
-    bool tab[size];        //tableau de booléens initialisé a 0 avec autant de cases que de nombres à tester
-    //pour les chiffres de 1 à 9, il y aura 9 cases
-    for(int X = X1; X <= X2 ; X++)
-    {
-        for(int Y = Y1; Y <= Y2; Y++)
-        {
-            if(compteur > 1)
-            {
-                break;
-            }
-            if(getVal(grid, X, Y)!=0)
-            {
-                tab[getVal(grid, X, Y)-1] = 1;
-
-            }
-            else
-            {
-
-                compteur ++;
-                x = X;
-                y = Y;
-            }
-
-        }
-    }
-    if(compteur == 1){
-        for(int i = 0; i<size; i++){
-            if(tab[i] == 0){
-                add_Value(grid,x, y, i+1);
-            }
-        }
-    }
-}
-*/
-
+//Variable permettant de savoir si la fonction "rule_1and3" à remplit au moins 1 case
 bool found_rule_1and3 = true;
 
+
+//Application des règles 1 et 3
 void rule_1and3 (T_grid grid, int sizet)
 {
     bool found = false;
@@ -159,8 +120,10 @@ void rule_1and3 (T_grid grid, int sizet)
     found_rule_1and3 = found;
 }
 
+//Variable indiquant si "rule_2" a remplit au moins une case
 bool found_rule_2 = true;
 
+//Application de la règle de résolution 2 
 void rule_2 (T_grid grid, int sizet)
 {
     bool found = false;
@@ -194,6 +157,8 @@ void rule_2 (T_grid grid, int sizet)
         found_rule_1and3 = found;
 }
 
+
+//Application de règle 2 spécifiquement à une ligne
 bool rule_2_line(T_grid grid, int sizet, int X, int Y, int tmp)
 {
     for (int y = 0; y < sizet; y++)
@@ -212,6 +177,8 @@ bool rule_2_line(T_grid grid, int sizet, int X, int Y, int tmp)
     return found;
 }
 
+
+//Application de la règle 2 spécifiquement à une colonne 
 bool rule_2_column (T_grid grid, int sizet, int X, int Y, int tmp)
 {
     for (int x = 0; x < sizet; x++)
@@ -230,6 +197,8 @@ bool rule_2_column (T_grid grid, int sizet, int X, int Y, int tmp)
     return found;
 }
 
+
+//Application de règle 2 spécifiquement à un bloc
 bool rule_2_square(T_grid grid, int sizet, int X, int Y, int tmp)
 {
     int nbr = sqrt(sizet);                //nombre de carré par ligne/colonne
@@ -255,6 +224,8 @@ bool rule_2_square(T_grid grid, int sizet, int X, int Y, int tmp)
     return found;
 }
 
+
+//Lance la résolution avec les règles 1 à 3
 void run_rules (T_grid grid, int sizet)
 {
     while (!(!found_rule_1and3 && !found_rule_2))
