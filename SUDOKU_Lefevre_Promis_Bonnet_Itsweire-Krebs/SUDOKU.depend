@@ -1,0 +1,228 @@
+# depslib dependency file v1.0
+1694976561 source:c:\users\julie\documents\l3 informatique\1er semestre\gestion de projet\thesudoku\sudoku\main.c
+	<stdio.h>
+	<stdlib.h>
+	<stdbool.h>
+	"Grille.h"
+
+1694973589 c:\users\julie\documents\l3 informatique\1er semestre\gestion de projet\thesudoku\sudoku\liste_simple.h
+	<stdbool.h>
+
+1694975628 c:\users\julie\documents\l3 informatique\1er semestre\gestion de projet\thesudoku\sudoku\grille.h
+
+1694975273 source:c:\users\julie\documents\l3 informatique\1er semestre\gestion de projet\thesudoku\sudoku\resolution.c
+	<stdio.h>
+	<stdlib.h>
+	<stdbool.h>
+	"Grille.h"
+	"Resolution.h"
+
+1694973589 c:\users\julie\documents\l3 informatique\1er semestre\gestion de projet\thesudoku\sudoku\resolution.h
+	"Grille.h"
+	<stdbool.h>
+
+1694973589 source:c:\users\julie\documents\l3 informatique\1er semestre\gestion de projet\thesudoku\sudoku\sdl.c
+
+1694976468 source:c:\users\julie\documents\l3 informatique\1er semestre\gestion de projet\thesudoku\sudoku\grille.c
+	<stdio.h>
+	<stdlib.h>
+	<stdbool.h>
+	"Grille.h"
+
+1694973723 source:c:\users\julie\documents\l3 informatique\1er semestre\gestion de projet\thesudoku\sudoku\liste_simple.c
+	<stdio.h>
+	<stdlib.h>
+	<stdbool.h>
+	"Liste_simple.h"
+
+1694981698 source:d:\projet sudoku\sudoku\grille.c
+	<stdio.h>
+	<stdlib.h>
+	<stdbool.h>
+	<math.h>
+	"Grille.h"
+
+1694975630 d:\projet sudoku\sudoku\grille.h
+
+1694973724 source:d:\projet sudoku\sudoku\liste_simple.c
+	<stdio.h>
+	<stdlib.h>
+	<stdbool.h>
+	"Liste_simple.h"
+
+1694973590 d:\projet sudoku\sudoku\liste_simple.h
+	<stdbool.h>
+
+1694975274 source:d:\projet sudoku\sudoku\resolution.c
+	<stdio.h>
+	<stdlib.h>
+	<stdbool.h>
+	"Grille.h"
+	"Resolution.h"
+
+1694973590 d:\projet sudoku\sudoku\resolution.h
+	"Grille.h"
+	<stdbool.h>
+
+1694973590 source:d:\projet sudoku\sudoku\sdl.c
+
+1694981160 source:d:\projet sudoku\sudoku\main.c
+	<stdio.h>
+	<stdlib.h>
+	<stdbool.h>
+	<math.h>
+	"Grille.h"
+
+1695925688 source:c:\users\abonn\downloads\sudoku_project-erreur_antoine\sudoku_project-erreur_antoine\sudoku_project-erreur_antoine\sudoku\grille.c
+	<stdio.h>
+	<stdlib.h>
+	<stdbool.h>
+	<math.h>
+	"Grille.h"
+
+1695925290 c:\users\abonn\downloads\sudoku_project-erreur_antoine\sudoku_project-erreur_antoine\sudoku_project-erreur_antoine\sudoku\grille.h
+
+1695925720 source:c:\users\abonn\downloads\sudoku_project-erreur_antoine\sudoku_project-erreur_antoine\sudoku_project-erreur_antoine\sudoku\main.c
+	<stdio.h>
+	<stdlib.h>
+	<stdbool.h>
+	<math.h>
+	"Grille.h"
+
+1695925873 source:c:\users\abonn\downloads\sudoku_project-erreur_antoine\sudoku_project-erreur_antoine\sudoku_project-erreur_antoine\sudoku\resolution.c
+	<stdio.h>
+	<stdlib.h>
+	<stdbool.h>
+	<math.h>
+	"Grille.h"
+	"Resolution.h"
+
+1695925838 c:\users\abonn\downloads\sudoku_project-erreur_antoine\sudoku_project-erreur_antoine\sudoku_project-erreur_antoine\sudoku\resolution.h
+	<stdbool.h>
+	"Grille.h"
+
+1699999172 source:c:\users\julie\downloads\sudoku_2\sudoku_project-erreur_antoine\sudoku_project-erreur_antoine\sudoku_project-erreur_antoine\sudoku\grille.c
+	<stdio.h>
+	<stdlib.h>
+	<stdbool.h>
+	<math.h>
+	"Grille.h"
+	"Notes.h"
+
+1699998796 c:\users\julie\downloads\sudoku_2\sudoku_project-erreur_antoine\sudoku_project-erreur_antoine\sudoku_project-erreur_antoine\sudoku\grille.h
+
+1700041431 source:c:\users\julie\downloads\sudoku_2\sudoku_project-erreur_antoine\sudoku_project-erreur_antoine\sudoku_project-erreur_antoine\sudoku\main.c
+	<stdio.h>
+	<stdlib.h>
+	<stdbool.h>
+	<math.h>
+	"Grille.h"
+	"Resolution.h"
+	"Notes.h"
+
+1699958218 c:\users\julie\downloads\sudoku_2\sudoku_project-erreur_antoine\sudoku_project-erreur_antoine\sudoku_project-erreur_antoine\sudoku\resolution.h
+	<stdbool.h>
+	"Grille.h"
+
+1699960674 source:c:\users\julie\downloads\sudoku_2\sudoku_project-erreur_antoine\sudoku_project-erreur_antoine\sudoku_project-erreur_antoine\sudoku\resolution.c
+	<stdio.h>
+	<stdlib.h>
+	<stdbool.h>
+	<math.h>
+	"Grille.h"
+	"Resolution.h"
+
+1700041016 c:\users\julie\downloads\sudoku_2\sudoku_project-erreur_antoine\sudoku_project-erreur_antoine\sudoku_project-erreur_antoine\sudoku\notes.h
+	"Grille.h"
+
+1700041481 source:c:\users\julie\downloads\sudoku_2\sudoku_project-erreur_antoine\sudoku_project-erreur_antoine\sudoku_project-erreur_antoine\sudoku\notes.c
+	<stdio.h>
+	<stdlib.h>
+	<stdbool.h>
+	<math.h>
+	"Grille.h"
+
+1700267985 source:c:\users\julie\downloads\sudoku_project-alllllleeeeeeerrrrrrrrrr\sudoku_project-alllllleeeeeeerrrrrrrrrr\sudoku\grille.c
+	<stdio.h>
+	<stdlib.h>
+	<stdbool.h>
+	<math.h>
+	"Grille.h"
+	"Notes.h"
+
+1700267027 c:\users\julie\downloads\sudoku_project-alllllleeeeeeerrrrrrrrrr\sudoku_project-alllllleeeeeeerrrrrrrrrr\sudoku\grille.h
+
+1700267608 c:\users\julie\downloads\sudoku_project-alllllleeeeeeerrrrrrrrrr\sudoku_project-alllllleeeeeeerrrrrrrrrr\sudoku\notes.h
+	"Grille.h"
+
+1700313576 source:c:\users\julie\downloads\sudoku_project-alllllleeeeeeerrrrrrrrrr\sudoku_project-alllllleeeeeeerrrrrrrrrr\sudoku\main.c
+	<stdio.h>
+	<stdlib.h>
+	<stdbool.h>
+	<math.h>
+	"Grille.h"
+	"Resolution.h"
+	"Notes.h"
+
+1700313467 c:\users\julie\downloads\sudoku_project-alllllleeeeeeerrrrrrrrrr\sudoku_project-alllllleeeeeeerrrrrrrrrr\sudoku\resolution.h
+	<stdbool.h>
+	"Grille.h"
+
+1700310950 source:c:\users\julie\downloads\sudoku_project-alllllleeeeeeerrrrrrrrrr\sudoku_project-alllllleeeeeeerrrrrrrrrr\sudoku\notes.c
+	<stdio.h>
+	<stdlib.h>
+	<stdbool.h>
+	<math.h>
+	"Grille.h"
+
+1700313576 source:c:\users\julie\downloads\sudoku_project-alllllleeeeeeerrrrrrrrrr\sudoku_project-alllllleeeeeeerrrrrrrrrr\sudoku\resolution.c
+	<stdio.h>
+	<stdlib.h>
+	<stdbool.h>
+	<math.h>
+	"Grille.h"
+	"Resolution.h"
+	"Notes.h"
+
+1700674658 source:c:\users\julie\downloads\sudoku_project-toutfonctionne\sudoku_project-toutfonctionne\sudoku\grille.c
+	<stdio.h>
+	<stdlib.h>
+	<stdbool.h>
+	<math.h>
+	"Grille.h"
+	"Notes.h"
+
+1700674658 c:\users\julie\downloads\sudoku_project-toutfonctionne\sudoku_project-toutfonctionne\sudoku\grille.h
+
+1700674658 c:\users\julie\downloads\sudoku_project-toutfonctionne\sudoku_project-toutfonctionne\sudoku\notes.h
+	"Grille.h"
+
+1700674658 source:c:\users\julie\downloads\sudoku_project-toutfonctionne\sudoku_project-toutfonctionne\sudoku\main.c
+	<stdio.h>
+	<stdlib.h>
+	<stdbool.h>
+	<math.h>
+	"Grille.h"
+	"Resolution.h"
+	"Notes.h"
+
+1700674658 c:\users\julie\downloads\sudoku_project-toutfonctionne\sudoku_project-toutfonctionne\sudoku\resolution.h
+	<stdbool.h>
+	"Grille.h"
+
+1700674658 source:c:\users\julie\downloads\sudoku_project-toutfonctionne\sudoku_project-toutfonctionne\sudoku\notes.c
+	<stdio.h>
+	<stdlib.h>
+	<stdbool.h>
+	<math.h>
+	"Grille.h"
+
+1700674658 source:c:\users\julie\downloads\sudoku_project-toutfonctionne\sudoku_project-toutfonctionne\sudoku\resolution.c
+	<stdio.h>
+	<stdlib.h>
+	<stdbool.h>
+	<math.h>
+	"Grille.h"
+	"Resolution.h"
+	"Notes.h"
+
