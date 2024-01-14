@@ -80,6 +80,7 @@ void setNote0Zone(T_grid grid, int x, int y,int length, int numNote) //Applique 
 
 }
 
+
 // int getNote(Box *cell, int numNote) 
 // {
 //     int mask = 1 << (numNote - 1);
@@ -170,22 +171,18 @@ bool oneNoteLeft (int note) //verifie qu'il n'y ai plus qu'une valeur possible s
 }
 
 
-int* getvalsNote(int note) //renvois la version décimal de la note
+int getNbrNote(int note) //renvois le nombre de notes possible dans une case
 {
     int p = LENGTH;
-    int ind = 1;
-    int * tab = (int*)malloc(sizeof(int) * (size_t + 1));
-    tab[0] = 0;
+    int nbr = 0;
     while (note != 0 && p >= 1){
         if (pow(2, p) >= note){
-            tab[ind] = p;
             note -= p;
-            ind ++;
             p--;
-            tab[0] += 1;
+            nbr++;
         }
     }
-    return realloc(tab, sizeof(int) * (tab[0] + 1));
+    return nbr;
 }
 
 bool EqualvalsNote(int* n1, int* n2){
@@ -197,4 +194,35 @@ bool EqualvalsNote(int* n1, int* n2){
         return false;
         }
     }
+}
+
+
+bool IsInTheTampon(int tmp, int note)
+{
+    return ((tmp & note) == note);
+}
+
+void setNoteRule6(T_grid grid, int x1_zone, int y1_zone, int x2_zone, int y2_zone, Box *tab, int tablength)
+{
+    bool test = true;
+    for(int X = X1; X < X2 ; X++)
+    {
+        for(int Y = Y1; Y < Y2; Y++)
+        {
+            for(int i = 0 ; i<tablength; i++)
+            {
+                if(grid[X][Y]=tab[i])
+                {
+                    test = false;
+                }
+            }
+            if(test == true)
+            {}
+            if(getVal(grid, X, Y)!=0)
+            {
+               if()
+            }
+        }
+    }
+    return true;
 }

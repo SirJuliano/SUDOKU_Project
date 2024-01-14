@@ -17,7 +17,9 @@ void setNote0Zone(T_grid grid, int x, int y,int length, int numNote);   //Appliq
 int getvalNote(int note);                                               //renvois la version décimal de la note
 bool oneNoteLeft (int note);     
 
-int* getvalsNote(int note);
+int getNbrNote(int note);
 bool EqualvalsNote(int* n1, int* n2);
+
+bool IsInTheTampon(int tmp, int note);
     //verifie qu'il n'y ai plus qu'une valeur possible sur une case#endif //SUDOKU_PROJECT_ERREUR_ANTOINE_NOTES_H
 #endif

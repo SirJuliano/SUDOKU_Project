@@ -242,21 +242,99 @@ void run_rules (T_grid grid, int sizet)
     }
 }
 
-void rule_6 (T_grid grid, int size_t, int X, int Y)
-{ 
-    int xs = (X / NBSQRT) * NBSQRT;
-    int ys = (Y / NBSQRT) * NBSQRT;
-    int ** tabDoublet = (int*)malloc(sizeof(int) * 2 * LENGTH);
-    for (int x = xs; x < xs + NBSQRT; x++)
-    {
-        for (int y = ys; y < ys + NBSQRT; y++)
-        {
-            int * doublet = grid[x][y].notes;
-            if ((caseVide(&grid[x][Y])) && (x != X) && (y != Y))
-            {
-                tabDoublet[i] = getvalsNote(grid[x][y].notes);
+void rules_67_zone (T_grid grid, int X1, int Y1, int X2, int Y2, int K)
+{
+    int x;
+    int y;
+    int nbrCase;
+    int tmp;
+    int tmp_test;
+    struct Box * tab;
+    for (int p = 0; p < LENGTH; p++){
+        for (int q = 0; q < LENGTH; q++){
+            for (int r = 0; r < LENGTH; r++){
+                if (p!=q && q!=r && r!=p){
+                    tab = (struct Box*) malloc(sizeof(struct Box) * K);
+                    tmp = pow(2, p) + pow(2, q) + pow(2, r);
+                    x = X1;
+                    y = Y1;
+                    nbrCase = 0;
+                    while (x <= X2 && nbrCase < K){
+                        while (y <= Y2 && nbrCase < K){
+                            if (IsInTheTampon(tmp, grid[x][y].notes)){
+                                tmp_test = tmp_test ^ grid[x][y].notes;
+                                tab[nbrCase] = (grid[x][y]);
+                                nbrCase++;
+                            }
+                            x++;
+                            y++;
+                        }
+                    }
+                    if (tmp_test == 0 && nbrCase == K){
+                        setNoteRule6(grid, X1, Y1, X2, Y2, tab, K);
+                    }
+                }
             }
         }
-
     }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+tab [possibilités restantes]
+tabk [k];
+while (k->3)
+    for i = 0 to lenght tab [possibilités restantes]
+        tabk[0] = tab[i]
+        tabk[1] = tab[i+1]
+        tabk[2] = tab[i+2]
+
+        echec je veux mtn tabk[i+2] = tab[i+3]
+
+index de mon uplet, k?, i la position  dans mon tableau 
+for oui de 2 à k 
+    tabk[k] = i1
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
