@@ -263,7 +263,7 @@ void rules_67_zone (T_grid grid, int X1, int Y1, int X2, int Y2, int K)
                         while (y <= Y2 && nbrCase < K){
                             if (IsInTheTampon(tmp, grid[x][y].notes)){
                                 tmp_test = tmp_test ^ grid[x][y].notes;
-                                tab[nbrCase] = (grid[x][y]);
+                                tab[nbrCase] = grid[x][y];
                                 nbrCase++;
                             }
                             x++;
@@ -271,7 +271,7 @@ void rules_67_zone (T_grid grid, int X1, int Y1, int X2, int Y2, int K)
                         }
                     }
                     if (tmp_test == 0 && nbrCase == K){
-                        setNoteRule6(grid, X1, Y1, X2, Y2, tab, K);
+                        setNoteRule6(grid, X1, Y1, X2, Y2, tab, K, tmp);
                     }
                 }
             }
