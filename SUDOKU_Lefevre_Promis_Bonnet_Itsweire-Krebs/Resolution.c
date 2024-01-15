@@ -242,12 +242,12 @@ void run_rules (T_grid grid, int sizet)
     }
 }
 
-bool* availableValues(T_grid grid, int X1, int Y1, int X2, int Y2)
+int* availableValues(T_grid grid, int X1, int Y1, int X2, int Y2, int* length)
 {
-    bool* tab[LENGTH];
+    bool* btab[LENGTH];
     for(int i = 0; i<LENGTH;i++)
     {
-        tab[i]=1;
+        btab[i]=1;
     }
     for(int X = X1; X<X2; X++)
     {
@@ -255,15 +255,25 @@ bool* availableValues(T_grid grid, int X1, int Y1, int X2, int Y2)
         {
             if(grid[X][Y].value != 0)
             {
-                tab[grid[X][Y].value] = 0;
+                btab[grid[X][Y].value] = 0;
+                (*length)++;
             }
+        }
+    }
+    int* tab[*(length)];
+    int index = 0;
+    for(int i = 0; i< LENGTH; i++)
+    {
+        if(btab[i] == 1)
+        {
+            tab[index] = i;
+            index++;
         }
     }
     return tab;
 }
 
-
-void rules_67_zone (T_grid grid, int X1, int Y1, int X2, int Y2, int K, int * tab)
+void rules_67_zone(T_grid grid, int X1, int Y1, int X2, int Y2, int K, int * tab)
 {
     int tmp = setNote1_tab(tab, K);
     int tmp_test = tmp;
@@ -271,7 +281,7 @@ void rules_67_zone (T_grid grid, int X1, int Y1, int X2, int Y2, int K, int * ta
     int y = Y1;
     int nbrCoord = 0;
     int note;
-    int ** tCoord[K];
+    int * tCoord[K];
     while (x <= X2 && nbrCoord < K){
         while (y <= Y2 && nbrCoord < K){
             note = grid[x][y].notes;
@@ -290,79 +300,58 @@ void rules_67_zone (T_grid grid, int X1, int Y1, int X2, int Y2, int K, int * ta
     }
 }
 
+// int main() {
+//     int tab[] = {2, 5, 6, 7, 8};
+//     int current[3];
+//     generateKtuples(tab, 5, 3, current, 0, 0);
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// tab [possibilités restantes]
-// tabk [k];
-// while (k->3)
-//     for i = 0 to lenght tab [possibilités restantes]
-//         tabk[0] = tab[i]
-//         tabk[1] = tab[i+1]
-//         tabk[2] = tab[i+2]
-
-//         echec je veux mtn tabk[i+2] = tab[i+3]
-
-// index de mon uplet, k?, i la position  dans mon tableau 
-// for oui de 2 à k 
-//     tabk[k] = i1
-
-
-
-
-
-// int kuplet[k];
-// for (int i = 0; i < k; i++)
-// {
-//     kuplet[i] = i + 1;
+//     return 0;
 // }
-int* generateKtuples (int* array,int n, int k, int *current, int index, int bfor)
-{
-    if (index == k)
-    {
-        //Fonctiondeteo(current,k);
-        printf("[%d,%d,%d]\n",current[0],current[1],current[2]);
+
+void generateKtuples(T_grid grid, int possibleValues[], int sizet, int k, int kuplet[], int index, int bfor, int X1, int Y1, int X2, int Y2) {
+    if (index == k) {
+        rules_67_zone (grid, X1, Y1, X2, Y2, k, kuplet);
         return;
     }
 
-    for (int i = bfor ; i < n - index; i ++)
-    {
-        current[index] = array[i];
-        generateKtuples(array[i],n,k,current,index+1, i+1);
+    for (int i = bfor; i < sizet-k+1; i++) {
+        kuplet[index] = possibleValues[i];
+        generateKtuples(grid, possibleValues, sizet+1, k, kuplet, index + 1, i + 1, X1, Y1, X2, Y2);
     }
 }
 
-
-
-
-
-
-
-
-
-
+void rules_67(T_grid grid){
+    int sizet;
+    for (int k = 2; k <= LENGTH/2; k++){
+        for (int l = 0; l < LENGTH; l++){
+            int kuplet[k];
+            sizet = 0;
+            
+            generateKtuples(grid, availableValues(grid, l, 0, l, LENGTH, &sizet), sizet, k, kuplet, 0, 0, l, 0, l, LENGTH); 
+        }
+        for (int c = 0; c < LENGTH; c++){
+            int kuplet[k];
+            sizet = 0;
+            generateKtuples(grid, availableValues(grid, 0, c, LENGTH, c, &sizet), sizet, k, kuplet, 0, 0, 0, c, LENGTH, c);
+        }
+        for (int i = 0; i < LENGTH; i + NBSQRT){
+            for (int j = 0; j < LENGTH; j + NBSQRT){
+                int kuplet[k];
+                sizet = 0;
+                generateKtuples(grid, availableValues(grid, i, j, i + NBSQRT, j + NBSQRT, &sizet), sizet, k, kuplet, 0, 0, i, j, i + NBSQRT, j + NBSQRT);
+            }
+        }
+    }
+    
+}
+/*!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!*/
+/********************************************************************************************************************************************************************************/
+/********************************************************************************************************************************************************************************/
+/********************************************************************************************************************************************************************************/
+//sizet pas update?? et gerer cas zone remplie /!\/!\/!\/!\/!\/!\/!\/!\/!\/!\/!\/!\/!\/!\/!\/!\/!\/!\/!\/!\/!\/!\/!\/!\/!\/!\/!\/!\/!\/!\/!\/!\/!\/!\/!\/!\/!\/!\/!\/!\/!\/!\/!\
+/********************************************************************************************************************************************************************************/
+/********************************************************************************************************************************************************************************/
+/********************************************************************************************************************************************************************************/
 
 
 

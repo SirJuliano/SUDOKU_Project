@@ -104,6 +104,9 @@ void setNote0Zone(T_grid grid, int x, int y,int length, int numNote) //Applique 
 // }
 
 int getvalNote(int note) //renvois la version tab
+{
+    switch(note){
+    case 1:
         return 1;
     case 2:
         return 2;
@@ -236,9 +239,14 @@ void setNoteRule6(T_grid grid, int x1_zone, int y1_zone, int x2_zone, int y2_zon
     }
 }
 
-int setNote1_tab(int tab, int size_t)   //Met à 1 le bit "numNote" de la note contenue dans "*cell"
+int setNote1_tab(int *tab, int size_t)   //Met à 1 le bit "numNote" de la note contenue dans "*cell"
 {
+    int tmp;
     for(int i = 0; i < size_t; i++)
-    int mask = 1 << (numNote-1);
-    tmp = tmp | mask;
+    {
+        int numNote = tab[i];
+        int mask = 1 << (numNote-1);
+        tmp = tmp | mask;
+    }
+    return tmp;
 }

@@ -23,6 +23,7 @@ bool rule_2_column (T_grid grid, int sizet, int X, int Y, int tmp);//fonction ap
 bool rule_2_square(T_grid grid, int sizet, int X, int Y, int tmp);//fonction appliquant rule_2 à un bloc
 void run_rules (T_grid grid, int sizet);                        //fonction appliquant rule_2 à une ligne
 
-bool* availableValues(T_grid grid, int X1, int Y1, int X2, int Y2);
+int* availableValues(T_grid grid, int X1, int Y1, int X2, int Y2, int* length);
 void rules_67_zone (T_grid grid, int X1, int Y1, int X2, int Y2, int K, int * tab);
+void generateKtuples(T_grid grid, int possibleValues[], int sizet, int k, int kuplet[], int index, int bfor, int X1, int Y1, int X2, int Y2);
 #endif // RESOLUTION_H_INCLUDED
