@@ -103,11 +103,7 @@ void setNote0Zone(T_grid grid, int x, int y,int length, int numNote) //Applique 
 //     }
 // }
 
-int getvalNote(int note) //renvois la version décimal de la note
-{
-    switch (note)
-    {
-    case 1:
+int getvalNote(int note) //renvois la version tab
         return 1;
     case 2:
         return 2;
@@ -202,29 +198,47 @@ bool IsInTheTampon(int tmp, int note)
     return ((tmp & note) == note);
 }
 
-void setNoteRule6(T_grid grid, int x1_zone, int y1_zone, int x2_zone, int y2_zone, Box *tab, int tablength, int tmp)
+void setNoteRule6(T_grid grid, int x1_zone, int y1_zone, int x2_zone, int y2_zone, int **tab, int tablength, int tmp)
 {
     bool test = true;
-    for(int X = X1; X < X2 ; X++)
+    for(int X = x1_zone; X < x2_zone ; X++)
     {
-        for(int Y = Y1; Y < Y2; Y++)
+        for(int i = 0; i < tablength; i++)
         {
-            for(int i = 0 ; i<tablength; i++)
+            if(X == tab[i][0])
             {
-                if(grid[X][Y]=tab[i])
-                {
-                    test = false;
-                }
-            }
-            if(test == true)
-            {
-                if(getVal(grid, X, Y)==0)
-                {
-                    int mask = 1 << tmp;
-                    grid[X][Y]->notes = grid[X][Y]->notes & ~mask ;
-                }
+                test = false;
             }
         }
+        if(test != false)
+        {
+            for(int Y = y1_zone; Y < y2_zone; Y++)
+            {
+                for(int i = 0 ; i<tablength; i++)
+                {
+                    if(Y == tab[i][1])
+                    {
+                        test = false;
+                    }
+                }
+                if(test != false)
+                {
+                    if(getVal(grid, X, Y)==0)
+                    {
+                        int mask = 1 << tmp;
+                        grid[X][Y].notes = grid[X][Y].notes & ~mask ;
+                    }
+                }
+                test = true;
+            }
+        }
+        test = true;
     }
-    return true;
+}
+
+int setNote1_tab(int tab, int size_t)   //Met à 1 le bit "numNote" de la note contenue dans "*cell"
+{
+    for(int i = 0; i < size_t; i++)
+    int mask = 1 << (numNote-1);
+    tmp = tmp | mask;
 }

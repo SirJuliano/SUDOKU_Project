@@ -242,40 +242,51 @@ void run_rules (T_grid grid, int sizet)
     }
 }
 
-void rules_67_zone (T_grid grid, int X1, int Y1, int X2, int Y2, int K)
+bool* availableValues(T_grid grid, int X1, int Y1, int X2, int Y2)
 {
-    int x;
-    int y;
-    int nbrCase;
-    int tmp;
-    int tmp_test;
-    struct Box * tab;
-    for (int p = 0; p < LENGTH; p++){
-        for (int q = 0; q < LENGTH; q++){
-            for (int r = 0; r < LENGTH; r++){
-                if (p!=q && q!=r && r!=p){
-                    tab = (struct Box*) malloc(sizeof(struct Box) * K);
-                    tmp = pow(2, p) + pow(2, q) + pow(2, r);
-                    x = X1;
-                    y = Y1;
-                    nbrCase = 0;
-                    while (x <= X2 && nbrCase < K){
-                        while (y <= Y2 && nbrCase < K){
-                            if (IsInTheTampon(tmp, grid[x][y].notes)){
-                                tmp_test = tmp_test ^ grid[x][y].notes;
-                                tab[nbrCase] = grid[x][y];
-                                nbrCase++;
-                            }
-                            x++;
-                            y++;
-                        }
-                    }
-                    if (tmp_test == 0 && nbrCase == K){
-                        setNoteRule6(grid, X1, Y1, X2, Y2, tab, K, tmp);
-                    }
-                }
+    bool* tab[LENGTH];
+    for(int i = 0; i<LENGTH;i++)
+    {
+        tab[i]=1;
+    }
+    for(int X = X1; X<X2; X++)
+    {
+        for(int Y = Y1; Y < Y2; Y++)
+        {
+            if(grid[X][Y].value != 0)
+            {
+                tab[grid[X][Y].value] = 0;
             }
         }
+    }
+    return tab;
+}
+
+
+void rules_67_zone (T_grid grid, int X1, int Y1, int X2, int Y2, int K, int * tab)
+{
+    int tmp = setNote1_tab(tab, K);
+    int tmp_test = tmp;
+    int x = X1;
+    int y = Y1;
+    int nbrCoord = 0;
+    int note;
+    int ** tCoord[K];
+    while (x <= X2 && nbrCoord < K){
+        while (y <= Y2 && nbrCoord < K){
+            note = grid[x][y].notes;
+            if (IsInTheTampon(tmp, note)){
+                tmp_test = tmp_test ^ (tmp_test & note);
+                tCoord[nbrCoord][0] = x;
+                tCoord[nbrCoord][1] = y;
+                nbrCoord++;
+            }
+            x++;
+            y++;
+        }
+    }
+    if (tmp_test == 0 && nbrCoord == K){
+        setNoteRule6(grid, X1, Y1, X2, Y2, &tCoord, K, tmp);
     }
 }
 
@@ -304,27 +315,44 @@ void rules_67_zone (T_grid grid, int X1, int Y1, int X2, int Y2, int K)
 
 
 
+// tab [possibilités restantes]
+// tabk [k];
+// while (k->3)
+//     for i = 0 to lenght tab [possibilités restantes]
+//         tabk[0] = tab[i]
+//         tabk[1] = tab[i+1]
+//         tabk[2] = tab[i+2]
 
-tab [possibilités restantes]
-tabk [k];
-while (k->3)
-    for i = 0 to lenght tab [possibilités restantes]
-        tabk[0] = tab[i]
-        tabk[1] = tab[i+1]
-        tabk[2] = tab[i+2]
+//         echec je veux mtn tabk[i+2] = tab[i+3]
 
-        echec je veux mtn tabk[i+2] = tab[i+3]
-
-index de mon uplet, k?, i la position  dans mon tableau 
-for oui de 2 à k 
-    tabk[k] = i1
-
+// index de mon uplet, k?, i la position  dans mon tableau 
+// for oui de 2 à k 
+//     tabk[k] = i1
 
 
 
 
 
+// int kuplet[k];
+// for (int i = 0; i < k; i++)
+// {
+//     kuplet[i] = i + 1;
+// }
+int* generateKtuples (int* array,int n, int k, int *current, int index, int bfor)
+{
+    if (index == k)
+    {
+        //Fonctiondeteo(current,k);
+        printf("[%d,%d,%d]\n",current[0],current[1],current[2]);
+        return;
+    }
 
+    for (int i = bfor ; i < n - index; i ++)
+    {
+        current[index] = array[i];
+        generateKtuples(array[i],n,k,current,index+1, i+1);
+    }
+}
 
 
 

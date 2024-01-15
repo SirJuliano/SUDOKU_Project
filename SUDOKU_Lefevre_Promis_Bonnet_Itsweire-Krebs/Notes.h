@@ -21,5 +21,6 @@ int getNbrNote(int note);
 bool EqualvalsNote(int* n1, int* n2);
 
 bool IsInTheTampon(int tmp, int note);
+void setNoteRule6(T_grid grid, int x1_zone, int y1_zone, int x2_zone, int y2_zone, int **tab, int tablength, int tmp);
     //verifie qu'il n'y ai plus qu'une valeur possible sur une case#endif //SUDOKU_PROJECT_ERREUR_ANTOINE_NOTES_H
 #endif
