@@ -26,4 +26,6 @@ void run_rules (T_grid grid, int sizet);                        //fonction appli
 int* availableValues(T_grid grid, int X1, int Y1, int X2, int Y2, int* length);
 void rules_67_zone (T_grid grid, int X1, int Y1, int X2, int Y2, int K, int * tab);
 void generateKtuples(T_grid grid, int possibleValues[], int sizet, int k, int kuplet[], int index, int bfor, int X1, int Y1, int X2, int Y2);
+int max4(int a);
+void rules_67(T_grid grid);
 #endif // RESOLUTION_H_INCLUDED

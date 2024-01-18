@@ -87,14 +87,14 @@ void setNote0Zone(T_grid grid, int x, int y,int length, int numNote) //Applique 
 //     return (cell->notes & mask) != 0;
 // }
 
-// void printBinary2(Box cell)
-// {
-//     printf("Jai fait mon atf \n");
-//     for (int i = sizeof(int) * 8 - 1; i >= 0; i--)
-//     {
-//         printf("%d", (cell.notes & (1 << i)) ? 1 : 0);
-//     }
-// }
+void printBinary2(Box cell)
+{
+    printf("Jai fait mon taf \n");
+    for (int i = sizeof(int) * 8 - 1; i >= 0; i--)
+    {
+        printf("%d", (cell.notes & (1 << i)) ? 1 : 0);
+    }
+}
 
 // void printBinary(int num) {
 //     printf("Jai fait mon atf \n");

@@ -11,7 +11,7 @@ void setNote0Square(T_grid grid, int x, int y, int length, int numNote);//Met à
 void setNote0Zone(T_grid grid, int x, int y,int length, int numNote);   //Applique ensembles les 3 précédentes fonctions
 
 // int getNote(Box *cell, int numNote);
-// void printBinary2(Box cell);
+void printBinary2(Box cell);
 // void printBinary(int num);
 
 int getvalNote(int note);                                               //renvois la version décimal de la note

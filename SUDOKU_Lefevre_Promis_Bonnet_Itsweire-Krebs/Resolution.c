@@ -276,7 +276,7 @@ int* availableValues(T_grid grid, int X1, int Y1, int X2, int Y2, int* length)
 void rules_67_zone(T_grid grid, int X1, int Y1, int X2, int Y2, int K, int * tab)
 {
     int tmp = setNote1_tab(tab, K);
-    int tmp_test = tmp;
+    //int tmp_test = tmp;
     int x = X1;
     int y = Y1;
     int nbrCoord = 0;
@@ -286,7 +286,7 @@ void rules_67_zone(T_grid grid, int X1, int Y1, int X2, int Y2, int K, int * tab
         while (y <= Y2 && nbrCoord < K){
             note = grid[x][y].notes;
             if (IsInTheTampon(tmp, note)){
-                tmp_test = tmp_test ^ (tmp_test & note);
+                //tmp_test = tmp_test ^ (tmp_test & note);
                 tCoord[nbrCoord][0] = x;
                 tCoord[nbrCoord][1] = y;
                 nbrCoord++;
@@ -295,7 +295,7 @@ void rules_67_zone(T_grid grid, int X1, int Y1, int X2, int Y2, int K, int * tab
             y++;
         }
     }
-    if (tmp_test == 0 && nbrCoord == K){
+    if (/*tmp_test == 0 && */nbrCoord == K){
         setNoteRule6(grid, X1, Y1, X2, Y2, &tCoord, K, tmp);
     }
 }
@@ -320,38 +320,51 @@ void generateKtuples(T_grid grid, int possibleValues[], int sizet, int k, int ku
     }
 }
 
+int max4(int a){
+    if(a < 4) { return a; }
+    else { return 4; }
+}
+
+// void rules_67(T_grid grid){
+//     int sizet;
+//     int * availVal;
+//     for (int l = 0; l < LENGTH; l++){
+//         sizet = 0;
+//         availVal = availableValues(grid, l, 0, l, LENGTH, &sizet);
+//         for (int k = 2; k <= max4(sizet); k++){   
+//             int kuplet[k];
+//             generateKtuples(grid, availVal, sizet, k, kuplet, 0, 0, l, 0, l, LENGTH); 
+//         }
+//     }
+//     for (int c = 0; c < LENGTH; c++){
+//         sizet = 0;
+//         availVal = availableValues(grid, c, 0, c, LENGTH, &sizet);
+//         for (int k = 2; k <= max4(sizet); k++){   
+//             int kuplet[k];            
+//             generateKtuples(grid, availVal, sizet, k, kuplet, 0, 0, 0, c, LENGTH, c);
+//         }
+//     }
+//     for (int i = 0; i < LENGTH; i + NBSQRT){
+//         for (int j = 0; j < LENGTH; j + NBSQRT){
+//             sizet = 0;
+//             availVal = availableValues(grid, i, j, i + NBSQRT, j + NBSQRT, &sizet);
+//             for (int k = 2; k <= max4(sizet); k++){    
+//                 int kuplet[k];
+//                 generateKtuples(grid, availVal, sizet, k, kuplet, 0, 0, i, j, i + NBSQRT, j + NBSQRT);
+//             }
+//         }
+//     }
+// }
+
 void rules_67(T_grid grid){
     int sizet;
-    for (int k = 2; k <= LENGTH/2; k++){
-        for (int l = 0; l < LENGTH; l++){
-            int kuplet[k];
-            sizet = 0;
-            
-            generateKtuples(grid, availableValues(grid, l, 0, l, LENGTH, &sizet), sizet, k, kuplet, 0, 0, l, 0, l, LENGTH); 
-        }
-        for (int c = 0; c < LENGTH; c++){
-            int kuplet[k];
-            sizet = 0;
-            generateKtuples(grid, availableValues(grid, 0, c, LENGTH, c, &sizet), sizet, k, kuplet, 0, 0, 0, c, LENGTH, c);
-        }
-        for (int i = 0; i < LENGTH; i + NBSQRT){
-            for (int j = 0; j < LENGTH; j + NBSQRT){
-                int kuplet[k];
-                sizet = 0;
-                generateKtuples(grid, availableValues(grid, i, j, i + NBSQRT, j + NBSQRT, &sizet), sizet, k, kuplet, 0, 0, i, j, i + NBSQRT, j + NBSQRT);
-            }
-        }
+    int * availVal;
+    sizet = 0;
+    availVal = availableValues(grid, 0, 0, NBSQRT, NBSQRT, &sizet);
+    for (int k = 2; k <= max4(sizet); k++){    
+        int kuplet[k];
+        generateKtuples(grid, availVal, sizet, k, kuplet, 0, 0, 0, 0, NBSQRT, NBSQRT);
     }
-    
 }
-/*!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!*/
-/********************************************************************************************************************************************************************************/
-/********************************************************************************************************************************************************************************/
-/********************************************************************************************************************************************************************************/
-//sizet pas update?? et gerer cas zone remplie /!\/!\/!\/!\/!\/!\/!\/!\/!\/!\/!\/!\/!\/!\/!\/!\/!\/!\/!\/!\/!\/!\/!\/!\/!\/!\/!\/!\/!\/!\/!\/!\/!\/!\/!\/!\/!\/!\/!\/!\/!\/!\/!\
-/********************************************************************************************************************************************************************************/
-/********************************************************************************************************************************************************************************/
-/********************************************************************************************************************************************************************************/
-
 
 
