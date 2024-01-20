@@ -344,48 +344,34 @@ int max4(int a){
     else { return 4; }
 }
 
-// void rules_67(T_grid grid){
-//     int sizet;
-//     int * availVal;
-//     for (int l = 0; l < LENGTH; l++){
-//         sizet = 0;
-//         availVal = availableValues(grid, l, 0, l, LENGTH, &sizet);
-//         for (int k = 2; k <= max4(sizet); k++){
-//             int kuplet[k];
-//             generateKtuples(grid, availVal, sizet, k, kuplet, 0, 0, l, 0, l, LENGTH);
-//         }
-//     }
-//     for (int c = 0; c < LENGTH; c++){
-//         sizet = 0;
-//         availVal = availableValues(grid, c, 0, c, LENGTH, &sizet);
-//         for (int k = 2; k <= max4(sizet); k++){
-//             int kuplet[k];
-//             generateKtuples(grid, availVal, sizet, k, kuplet, 0, 0, 0, c, LENGTH, c);
-//         }
-//     }
-//     for (int i = 0; i < LENGTH; i + NBSQRT){
-//         for (int j = 0; j < LENGTH; j + NBSQRT){
-//             sizet = 0;
-//             availVal = availableValues(grid, i, j, i + NBSQRT, j + NBSQRT, &sizet);
-//             for (int k = 2; k <= max4(sizet); k++){
-//                 int kuplet[k];
-//                 generateKtuples(grid, availVal, sizet, k, kuplet, 0, 0, i, j, i + NBSQRT, j + NBSQRT);
-//             }
-//         }
-//     }
-// }
-
 void rules_67(T_grid grid){
-    //printf("Rules_67\n");
     int sizet;
     int * availVal;
-    sizet = 0;
-    availVal = availableValues(grid, 0, 0, NBSQRT-1, NBSQRT-1, &sizet);
-    for (int k = 2; k <= max4(sizet); k++){
-        int kuplet[k];
-        generateKtuples(grid, availVal, sizet, k, kuplet, 0, 0, 0, 0, NBSQRT-1, NBSQRT-1);
+    for (int l = 0; l < LENGTH; l++){
+        sizet = 0;
+        availVal = availableValues(grid, l, 0, l, LENGTH, &sizet);
+        for (int k = 2; k <= max4(sizet); k++){
+            int kuplet[k];
+            generateKtuples(grid, availVal, sizet, k, kuplet, 0, 0, l, 0, l, LENGTH);
+        }
+    }
+    for (int c = 0; c < LENGTH; c++){
+        sizet = 0;
+        availVal = availableValues(grid, c, 0, c, LENGTH, &sizet);
+        for (int k = 2; k <= max4(sizet); k++){
+            int kuplet[k];
+            generateKtuples(grid, availVal, sizet, k, kuplet, 0, 0, 0, c, LENGTH, c);
+        }
+    }
+    for (int i = 0; i < LENGTH; i + NBSQRT){
+        for (int j = 0; j < LENGTH; j + NBSQRT){
+            sizet = 0;
+            availVal = availableValues(grid, i, j, i + NBSQRT - 1, j + NBSQRT - 1, &sizet);
+            for (int k = 2; k <= max4(sizet); k++){
+                int kuplet[k];
+                generateKtuples(grid, availVal, sizet, k, kuplet, 0, 0, i, j, i + NBSQRT - 1, j + NBSQRT - 1);
+            }
+        }
     }
     free(availVal);
 }
-
-

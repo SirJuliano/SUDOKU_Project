@@ -190,46 +190,7 @@ bool IsInTheTampon(int tmp, int note)
     //printf("IsinTheTampon\n");
     return ((tmp & note) == note);
 }
-/*
-void setNoteRule6(T_grid grid, int x1_zone, int y1_zone, int x2_zone, int y2_zone, int **tab, int tablength, int tmp)
-{
-    printf("setNoteRule6\n");
-    bool test = true;
-    for(int X = x1_zone; X < x2_zone ; X++)
-    {
-        for(int i = 0; i < tablength; i++)
-        {
-            if(X == tab[i][0])
-            {
-                test = false;
-            }
-        }
-        if(test != false)
-        {
-            for(int Y = y1_zone; Y < y2_zone; Y++)
-            {
-                for(int i = 0 ; i<tablength; i++)
-                {
-                    if(Y == tab[i][1])
-                    {
-                        test = false;
-                    }
-                }
-                if(test != false)
-                {
-                    if(getVal(grid, X, Y)==0)
-                    {
-                        int mask = 1 << tmp;
-                        grid[X][Y].notes = grid[X][Y].notes & ~mask ;
-                    }
-                }
-                test = true;
-            }
-        }
-        test = true;
-    }
-}
-*/
+
 void setNoteRule6(T_grid grid, int x1_zone, int y1_zone, int x2_zone, int y2_zone, int tab[][2], int tablength, int tmp)
 {
     for(int X = x1_zone; X <= x2_zone ; X++)
