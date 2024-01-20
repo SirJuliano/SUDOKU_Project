@@ -15,17 +15,16 @@ bool verifSquare(T_grid grid, int x, int y, int length);        //fonction véri
 bool verifGrid(T_grid grid, int length);                        //fonction vérifiant la validité de la grille complète
 // void setNote(int* cell, int numNote)
 bool found_rule_1and3;                                          //Variable vérifiant si la fonction "rule_1and3" à trouvé une solution
-void rule_1and3 (T_grid grid, int sizet);                       //fonction appliquant les règles de résolution 1 et 3
-bool found_rule_2 ;                                             //Variable vérifiant si la fonction "rule_2" à trouvé une solution
-void rule_2 (T_grid grid, int sizet);
+bool rule_1and3 (T_grid grid, int sizet);                       //fonction appliquant les règles de résolution 1 et 3                                            //Variable vérifiant si la fonction "rule_2" à trouvé une solution
+bool rule_2 (T_grid grid, int sizet);
 bool rule_2_line(T_grid grid, int sizet, int X, int Y, int tmp);//Focntion appliquant la règle de résolution 2
 bool rule_2_column (T_grid grid, int sizet, int X, int Y, int tmp);//fonction appliquant rule_2 à une colonne
 bool rule_2_square(T_grid grid, int sizet, int X, int Y, int tmp);//fonction appliquant rule_2 à un bloc
 void run_rules (T_grid grid, int sizet);                        //fonction appliquant rule_2 à une ligne
 
 int* availableValues(T_grid grid, int X1, int Y1, int X2, int Y2, int* length);
-void rules_67_zone (T_grid grid, int X1, int Y1, int X2, int Y2, int K, int * tab);
-void generateKtuples(T_grid grid, int possibleValues[], int sizet, int k, int kuplet[], int index, int bfor, int X1, int Y1, int X2, int Y2);
+bool rules_67_zone (T_grid grid, int X1, int Y1, int X2, int Y2, int K, int * tab);
+bool generateKtuples(T_grid grid, int possibleValues[], int sizet, int k, int kuplet[], int index, int bfor, int X1, int Y1, int X2, int Y2);
 int max4(int a);
-void rules_67(T_grid grid);
+bool rules_67(T_grid grid);
 #endif // RESOLUTION_H_INCLUDED

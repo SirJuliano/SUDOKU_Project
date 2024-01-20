@@ -93,11 +93,9 @@ bool verifGrid(T_grid grid, int length)
 }
 
 //Variable permettant de savoir si la fonction "rule_1and3" à remplit au moins 1 case
-bool found_rule_1and3 = true;
-
 
 //Application des règles 1 et 3
-void rule_1and3 (T_grid grid, int sizet)
+bool rule_1and3 (T_grid grid, int sizet)
 {
     bool found = false;
     int i = 0;
@@ -117,14 +115,11 @@ void rule_1and3 (T_grid grid, int sizet)
             }
         }
     }
-    found_rule_1and3 = found;
+    return found;
 }
 
-//Variable indiquant si "rule_2" a remplit au moins une case
-bool found_rule_2 = true;
-
 //Application de la règle de résolution 2
-void rule_2 (T_grid grid, int sizet)
+bool rule_2 (T_grid grid, int sizet)
 {
     bool found = false;
     for (int x = 0; x < sizet; x++)
@@ -152,9 +147,7 @@ void rule_2 (T_grid grid, int sizet)
             }
         }
     }
-    found_rule_2 = found;
-    if (found)
-        found_rule_1and3 = found;
+    return found;
 }
 
 
@@ -225,32 +218,74 @@ bool rule_2_square(T_grid grid, int sizet, int X, int Y, int tmp)
 
 
 //Lance la résolution avec les règles 1 à 3
+// void run_rules (T_grid grid, int sizet)
+// {
+
+    // if (rule_1and3(grid, sizet))
+    // {
+    //     run_rules(grid, sizet);
+    //     return;
+    // }
+    // else 
+    // {
+    //     if (rule_2(grid, sizet))
+    //     {
+    //         run_rules(grid, sizet);
+    //         return;
+    //     }
+    //     else 
+    //     {
+    //         if (rules_67)
+    //         {
+    //             run_rules(grid, sizet);
+    //             return;
+    //         }
+    //     }
+    // }
+    
+//     bool testGlobal = true;
+//     bool testValid = true;
+    
+//     while (testGlobal){
+//         while (!rule_1and3(grid, sizet)){
+//             testValid = true;
+//             while (!rule_2(grid, sizet) && testValid){
+//                 while (!rules_67(grid) && testValid){
+//                     testGlobal = false;
+//                     break;
+//                 }
+//                 testValid = false;
+//             }
+//         }
+//     }
+// }
+
 void run_rules (T_grid grid, int sizet)
 {
-    while (!(!found_rule_1and3 && !found_rule_2))
+    bool theend = false;
+    while(!theend)
     {
-        found_rule_1and3 = true;
-        found_rule_2 = true;
-        while (found_rule_1and3)
-        {
-            rule_1and3(grid, sizet);
-        }
-        while (found_rule_2)
-        {
-            rule_2(grid, sizet);
+        while (!rule_1and3(grid, sizet)){
+            if (rule_2(grid, sizet))
+            {
+                break;
+            }
+            else if (rules_67(grid))
+            {
+                break;
+            } 
+            else theend = true;
         }
     }
 }
 
 int* availableValues(T_grid grid, int X1, int Y1, int X2, int Y2, int* length)
 {
-    //printf("AvailableValues\n");
     bool btab[LENGTH];
     for(int i = 0; i<LENGTH;i++)
     {
         btab[i]=true;
     }
-    //printf("AvailableValues1\n");
     for(int X = X1; X <=X2; X++)
     {
         for(int Y = Y1; Y <= Y2; Y++)
@@ -262,7 +297,6 @@ int* availableValues(T_grid grid, int X1, int Y1, int X2, int Y2, int* length)
             else (*length)++;
         }
     }
-    //printf("AvailableValues2\n");
     int* tab = (int*)malloc(*length * sizeof(int));
     int index = 0;
     for(int i = 0; i< LENGTH; i++)
@@ -273,20 +307,12 @@ int* availableValues(T_grid grid, int X1, int Y1, int X2, int Y2, int* length)
             index++;
         }
     }
-    /*printf("VALEURS A TESTER [");
-    for (int i = 0; i < *length ; i++)
-    {
-        printf("  %d  ",tab[i]);
-    }
-    printf("]\n");*/
     return tab;
 }
 
-void rules_67_zone(T_grid grid, int X1, int Y1, int X2, int Y2, int K, int * tab)
+bool rules_67_zone(T_grid grid, int X1, int Y1, int X2, int Y2, int K, int * tab)
 {
-    //printf("Rules_67_zone\n");
     int tmp = setNote1_tab(tab, K);
-    //int tmp_test = tmp;
     int x = X1;
     int y = Y1;
     int nbrCoord = 0;
@@ -301,7 +327,6 @@ void rules_67_zone(T_grid grid, int X1, int Y1, int X2, int Y2, int K, int * tab
         while (y <= Y2 && nbrCoord < K){
             note = grid[x][y].notes;
             if (IsInTheTampon(tmp, note) && grid[x][y].value == 0){
-                //tmp_test = tmp_test ^ (tmp_test & note);
                 tCoord[nbrCoord][0] = x;
                 tCoord[nbrCoord][1] = y;
                 nbrCoord++;
@@ -310,11 +335,15 @@ void rules_67_zone(T_grid grid, int X1, int Y1, int X2, int Y2, int K, int * tab
         }
         x++;
     }
-
+    bool found = false;
     if (/*tmp_test == 0 && */nbrCoord == K){
         printf("EUREKA\n");
-        setNoteRule6(grid, X1, Y1, X2, Y2, tCoord, K, tmp);
+        if (setNoteRule6(grid, X1, Y1, X2, Y2, tCoord, K, tmp))
+        {
+            found = true;
+        }
     }
+    return found;
 }
 
 // int main() {
@@ -325,11 +354,15 @@ void rules_67_zone(T_grid grid, int X1, int Y1, int X2, int Y2, int K, int * tab
 //     return 0;
 // }
 
-void generateKtuples(T_grid grid, int possibleValues[], int sizet, int k, int kuplet[], int index, int bfor, int X1, int Y1, int X2, int Y2) {
+bool generateKtuples(T_grid grid, int possibleValues[], int sizet, int k, int kuplet[], int index, int bfor, int X1, int Y1, int X2, int Y2) {
     //printf("generateKtuples\n");
+    bool found = false;
     if (index == k) {
-        rules_67_zone (grid, X1, Y1, X2, Y2, k, kuplet);
-        return;
+        if (rules_67_zone (grid, X1, Y1, X2, Y2, k, kuplet))
+        {
+            found = true;
+        }
+        return found;
     }
 
     for (int i = bfor; i < sizet-k+1; i++) {
@@ -344,15 +377,19 @@ int max4(int a){
     else { return 4; }
 }
 
-void rules_67(T_grid grid){
+bool rules_67(T_grid grid){
     int sizet;
     int * availVal;
+    bool found = false;
     for (int l = 0; l < LENGTH; l++){
         sizet = 0;
         availVal = availableValues(grid, l, 0, l, LENGTH, &sizet);
         for (int k = 2; k <= max4(sizet); k++){
             int kuplet[k];
-            generateKtuples(grid, availVal, sizet, k, kuplet, 0, 0, l, 0, l, LENGTH);
+            if (generateKtuples(grid, availVal, sizet, k, kuplet, 0, 0, l, 0, l, LENGTH))
+            {
+                found = true;
+            }
         }
     }
     for (int c = 0; c < LENGTH; c++){
@@ -360,7 +397,10 @@ void rules_67(T_grid grid){
         availVal = availableValues(grid, c, 0, c, LENGTH, &sizet);
         for (int k = 2; k <= max4(sizet); k++){
             int kuplet[k];
-            generateKtuples(grid, availVal, sizet, k, kuplet, 0, 0, 0, c, LENGTH, c);
+            if (generateKtuples(grid, availVal, sizet, k, kuplet, 0, 0, 0, c, LENGTH, c))
+            {
+                found = true;
+            }
         }
     }
     for (int i = 0; i < LENGTH; i + NBSQRT){
@@ -369,9 +409,16 @@ void rules_67(T_grid grid){
             availVal = availableValues(grid, i, j, i + NBSQRT - 1, j + NBSQRT - 1, &sizet);
             for (int k = 2; k <= max4(sizet); k++){
                 int kuplet[k];
-                generateKtuples(grid, availVal, sizet, k, kuplet, 0, 0, i, j, i + NBSQRT - 1, j + NBSQRT - 1);
+                if (generateKtuples(grid, availVal, sizet, k, kuplet, 0, 0, i, j, i + NBSQRT - 1, j + NBSQRT - 1))
+                {
+                    found = true;
+                }
             }
         }
     }
     free(availVal);
+    return found;
 }
+
+
+

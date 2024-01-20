@@ -191,8 +191,9 @@ bool IsInTheTampon(int tmp, int note)
     return ((tmp & note) == note);
 }
 
-void setNoteRule6(T_grid grid, int x1_zone, int y1_zone, int x2_zone, int y2_zone, int tab[][2], int tablength, int tmp)
+bool setNoteRule6(T_grid grid, int x1_zone, int y1_zone, int x2_zone, int y2_zone, int tab[][2], int tablength, int tmp)
 {
+    bool found = false;
     for(int X = x1_zone; X <= x2_zone ; X++)
     {
         for(int Y = y1_zone; Y <= y2_zone; Y++)
@@ -205,12 +206,20 @@ void setNoteRule6(T_grid grid, int x1_zone, int y1_zone, int x2_zone, int y2_zon
                     opere = false;
                 }
             }
+            int tmp_note = grid[X][Y].notes;
             if(opere && getVal(grid, X, Y) == 0)
                 {
+                    int tmp_note = grid[X][Y].notes;
                     grid[X][Y].notes = grid[X][Y].notes & (~tmp) ;
                 }
+            if (tmp_note != grid[X][Y].notes)
+            {
+                found = true;
+            }
             }
         }
+
+        return found;
 }
 
 
