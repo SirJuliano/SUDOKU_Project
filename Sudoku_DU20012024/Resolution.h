@@ -13,8 +13,7 @@ bool verifColumn(T_grid grid, int y, int length);               //fonction véri
 bool verifSquare(T_grid grid, int x, int y, int length);        //fonction vérifiant la validité d'un carré
 
 bool verifGrid(T_grid grid, int length);                        //fonction vérifiant la validité de la grille complète
-// void setNote(int* cell, int numNote)
-bool found_rule_1and3;                                          //Variable vérifiant si la fonction "rule_1and3" à trouvé une solution
+// void setNote(int* cell, int numNote)                                         //Variable vérifiant si la fonction "rule_1and3" à trouvé une solution
 bool rule_1and3 (T_grid grid, int sizet);                       //fonction appliquant les règles de résolution 1 et 3                                            //Variable vérifiant si la fonction "rule_2" à trouvé une solution
 bool rule_2 (T_grid grid, int sizet);
 bool rule_2_line(T_grid grid, int sizet, int X, int Y, int tmp);//Focntion appliquant la règle de résolution 2

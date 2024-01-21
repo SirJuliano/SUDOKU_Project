@@ -61,7 +61,7 @@ bool verifColumn(T_grid grid, int x, int length)
 //fonction vérifiant la validité d'un carré
 bool verifSquare(T_grid grid, int x, int y, int length)
 {
-    int sizeSquare = sqrt(length);
+    int sizeSquare = (int)sqrt(length);
     return gridVerif(grid, x, (x + sizeSquare-1), y, (y + sizeSquare-1), length);
 }
 
@@ -374,7 +374,7 @@ bool generateKtuples(T_grid grid, int possibleValues[], int sizet, int k, int ku
     //printf("generateKtuples\n");
     bool found = false;
     if (index == k) {
-        if (rules_67_zone (grid, X1, Y1, X2, Y2, k, kuplet))
+        if (rules_89_zone (grid, X1, Y1, X2, Y2, k, kuplet))
         {
             found = true;
         }
@@ -442,6 +442,48 @@ bool rules_67(T_grid grid){
     free(availVal);
     return found;
 }
+
+
+bool rules_89_zone(T_grid grid, int X1, int Y1, int X2, int Y2, int K, int * tab)
+{
+    int tmp = setNote1_tab(tab, K);
+    int x = X1;
+    int y = Y1;
+    int nbrCoord = 0;
+    int notok = 0;
+    int note;
+    int tCoord[K][2];
+    for (int i = 0; i < K; i++)
+    {
+        printf("KUPLET EN TEST : %d\n", tab[i]);
+    }
+    while (x <= X2){
+            y = Y1;
+        while (y <= Y2){
+            note = grid[x][y].notes;
+            if (tmp & note == 0  && grid[x][y].value == 0){
+                tCoord[notok][0] = x;
+                tCoord[notok][1] = y;
+                notok ++;
+            }
+            else nbrCoord++;
+            y++;
+        }
+        x++;
+    }
+    bool found = false;
+    if (/*tmp_test == 0 && */nbrCoord == K){
+        printf("EUREKA RULES 89\n");
+        if (setNoteRule6(grid, X1, Y1, X2, Y2, tCoord, K, tmp))
+        {
+            found = true;
+        }
+    }
+
+    return found;
+}
+
+
 
 
 

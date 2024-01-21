@@ -12,7 +12,7 @@ int main()
     T_grid grille = createGrid(LENGTH);
     initGrid(grille, LENGTH);
 //TEST 1
-
+/*
     grille = add_Value(grille, 0, 0, 7);
     grille = add_Value(grille, 0, 2, 9);
     grille = add_Value(grille, 0, 5, 1);
@@ -38,7 +38,7 @@ int main()
     grille = add_Value(grille, 8, 0, 5);
     grille = add_Value(grille, 8, 1, 7);
     grille = add_Value(grille, 8, 4, 3);
-
+/*
 
 
 //TEST 2
@@ -117,6 +117,26 @@ int main()
 
 //TEST 5 RIIIEN
     //grille = add_Value(grille, 0, 0, 1);
+
+//TEST 6 3UPLET 567 EXEMPLE PROF
+    grille = add_Value(grille, 0, 2, 8);
+    grille = add_Value(grille, 0, 5, 7);
+    grille = add_Value(grille, 1, 1, 4);
+    grille = add_Value(grille, 1, 2, 2);
+    grille = add_Value(grille, 1, 5, 5);
+    grille = add_Value(grille, 3, 2, 3);
+    grille = add_Value(grille, 3, 5, 6);
+    grille = add_Value(grille, 3, 6, 8);
+    grille = add_Value(grille, 3, 8, 1);
+    grille = add_Value(grille, 4, 8, 6);
+    grille = add_Value(grille, 5, 0, 9);
+    grille = add_Value(grille, 6, 1, 8);
+    grille = add_Value(grille, 6, 3, 1);
+    grille = add_Value(grille, 6, 4, 3);
+    grille = add_Value(grille, 6, 6, 4);
+    grille = add_Value(grille, 6, 7, 7);
+    grille = add_Value(grille, 7, 4, 9);
+    grille = add_Value(grille, 8, 1, 1);
 
     Show_grid(grille, LENGTH);
 
