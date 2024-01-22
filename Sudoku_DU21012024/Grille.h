@@ -16,7 +16,7 @@ void initGrid(T_grid grid, int length);                                        /
 
 T_grid add_Value(T_grid gridF, int pos_line, int pos_column, int value);      //ajoute une valeur dans la case souhaitee
 T_grid deleteAvalue(T_grid grid, int pos_line, int pos_column);              //supprime la valeur de la case
-int getVal(T_grid grid, int x, int y);                                          //renvoie le chiffre de la case x, y
+int getVal(T_grid grid, int x, int y);                                          //renvoie le chiffre de la case [x, y]
 void Show_grid(T_grid gridF, int length);                                      //affiche la grille
 
 void freeGrid(T_grid grid, int length);                                        //libère la mémoire allouée pour la grille

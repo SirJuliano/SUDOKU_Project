@@ -37,7 +37,6 @@ void initGrid(T_grid grid, int length)
 T_grid add_Value(T_grid grid, int pos_line, int pos_column, int value)
 {
     grid[pos_line][pos_column].value = value;
-    //printf("a l'emplaccement %d,%d j'ajoute %d \n\n", pos_line, pos_column, value);
     setNote0Zone(grid, pos_line, pos_column, 9, value);
     grid[pos_line][pos_column].notes = 0;
 

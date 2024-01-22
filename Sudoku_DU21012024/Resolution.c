@@ -34,7 +34,7 @@ bool gridVerif(T_grid grid, int X1, int X2, int Y1, int Y2, int lenght)
     {
         for(int Y = Y1; Y < Y2; Y++)
         {
-            if(getVal(grid, X, Y)!=0)
+            if(getVal(grid, X, Y)!=-1)
             {
                 if (!verifCase(res, getVal(grid, X, Y)))
                 {
@@ -92,12 +92,13 @@ bool verifGrid(T_grid grid, int length)
     return true;
 }
 
-//Variable permettant de savoir si la fonction "rule_1and3" à remplit au moins 1 case
+
+
 
 //Application des règles 1 et 3
 bool rule_1and3 (T_grid grid, int sizet)
 {
-    printf("APPLICATION RULE_1_3\n");
+    //printf("APPLICATION RULE_1_3\n");
     bool found = false;
     int i = 0;
     for (int x = 0; x < sizet; x++)
@@ -122,7 +123,7 @@ bool rule_1and3 (T_grid grid, int sizet)
 //Application de la règle de résolution 2
 bool rule_2 (T_grid grid, int sizet)
 {
-    printf("APPLICATION RULE_2\n");
+    //printf("APPLICATION RULE_2\n");
     bool found = false;
     for (int x = 0; x < sizet; x++)
     {
@@ -236,7 +237,7 @@ void run_rules (T_grid grid, int sizet)
         }
         else
         {
-            if (rules_67(grid))
+            if (rules_610(grid))
             {
                 run_rules(grid, sizet);
                 return;
@@ -313,7 +314,7 @@ void run_rules (T_grid grid, int sizet)
 }*/
 
 
-
+//fonction renvoyant un tableau remplie des valeurs non présentes dans une zone et sa taille
 int* availableValues(T_grid grid, int X1, int Y1, int X2, int Y2, int* length)
 {
     bool btab[LENGTH];
@@ -321,15 +322,15 @@ int* availableValues(T_grid grid, int X1, int Y1, int X2, int Y2, int* length)
     {
         btab[i]=true;
     }
-    for(int X = X1; X <=X2; X++)
+    for(int X = X1; X <=X2; X++)    //parcours de la zone donnée
     {
         for(int Y = Y1; Y <= Y2; Y++)
         {
-            if(grid[X][Y].value != 0)
+            if(grid[X][Y].value != 0)   //si une case est remplie
             {
-                btab[grid[X][Y].value - 1] = false;
+                btab[grid[X][Y].value - 1] = false; //est est supprimée du tableau de possibilités
             }
-            else (*length)++;
+            else (*length)++;   //sinon, le tableau de possibilité grandit
         }
     }
     int* tab = (int*)malloc(*length * sizeof(int));
@@ -338,32 +339,29 @@ int* availableValues(T_grid grid, int X1, int Y1, int X2, int Y2, int* length)
     {
         if(btab[i])
         {
-            tab[index] = i+1;
+            tab[index] = i+1;   //création du tableau remplie des valeurs possibles
             index++;
         }
     }
     return tab;
 }
 
-bool rules_67_zone(T_grid grid, int X1, int Y1, int X2, int Y2, int K, int * tab)
+//fonction envoyant les coordonnées des cases correspondantes au kuplet donnée (si elles existent) à setNoteRule610
+bool rules_67_zone(T_grid grid, int X1, int Y1, int X2, int Y2, int K, int * kuplet)
 {
-    int tmp = setNote1_tab(tab, K);
+    int tmp = setNote1_tab(kuplet, K);  //création de tampon correspondant au kuplet donnée
     int x = X1;
     int y = Y1;
     int nbrCoord = 0;
     int note;
     int tCoord[K][2];
-    for (int i = 0; i < K; i++)
-    {
-        //printf("KUPLET EN TEST : %d\n", tab[i]);
-    }
-    while (x <= X2 && nbrCoord < K){
+    while (x <= X2 && nbrCoord < K){    //parcours de la zone
             y = Y1;
         while (y <= Y2 && nbrCoord < K){
             note = grid[x][y].notes;
-            if (IsInTheTampon(tmp, note) && grid[x][y].value == 0){
-                tCoord[nbrCoord][0] = x;
-                tCoord[nbrCoord][1] = y;
+            if (IsInTheTampon(tmp, note) && grid[x][y].value == 0){     //Si la note de d'une case est comprise dans le kuplet (et si elle est vide),
+                tCoord[nbrCoord][0] = x;                                //on garde ses coordonnées en mémoires afin de ne pas mofifier sa note.
+                tCoord[nbrCoord][1] = y;                                //On ne modifie que les cases ne comprenant pas le kuplet
                 nbrCoord++;
             }
             y++;
@@ -371,43 +369,86 @@ bool rules_67_zone(T_grid grid, int X1, int Y1, int X2, int Y2, int K, int * tab
         x++;
     }
     bool found = false;
-    if (/*tmp_test == 0 && */nbrCoord == K){
-        bool result;
-        result = setNoteRule6(grid, X1, Y1, X2, Y2, tCoord, K, tmp);
+    if (nbrCoord == K){                                                         //si le tableau est remplie
+        bool result = setNoteRule610(grid, X1, Y1, X2, Y2, tCoord, K, tmp);     //on applique les règles sur la zone donnée
         if (result)
         {
             found = true;
         }
     }
-    return found;
+    return found;       //on revoie true si la grille a été modifié, false sinon
+}
+
+//fonction envoyant les coordonnées des cases correspondantes au kuplet donnée (si elles existent) à setNoteRule610
+bool rules_89_zone(T_grid grid, int X1, int Y1, int X2, int Y2, int K, int * tab)
+{
+    int tmp = setNote1_tab(tab, K);  //création de tampon correspondant au kuplet donnée
+    int x = X1;
+    int y = Y1;
+    int nbrCoord = 0;
+    int notOk = 0;
+    int note;
+    int tCoord[LENGTH - K][2];
+    while (x <= X2){            //parcours de la zone
+        y = Y1;
+        while (y <= Y2){
+            note = grid[x][y].notes;
+            if (((tmp & note) == 0) && (LENGTH - K >= notOk)){      //si la note de la case n'a rien en commun avec le kuplet et que le tableau n'est pas plein
+                tCoord[notOk][0] = x;                               //on garde ses coordonnées en mémoires afin de ne pas mofifier sa note.
+                tCoord[notOk][1] = y;                               //On ne modifie que les cases comprenant le kuplet
+                notOk ++;
+            }
+            else
+            {
+                nbrCoord++;
+            }
+            y++;
+        }
+        x++;
+    }
+    bool found = false;
+    if (nbrCoord == K){                                                                 //si le tableau est remplie
+        bool result = setNoteRule610(grid, X1, Y1, X2, Y2, tCoord, LENGTH - K, ~tmp);   //on applique les règles sur la zone donnée
+        if (result)
+        {
+            found = true;
+        }
+    }
+    return found;       //on revoie true si la grille a été modifié, false sinon
 }
 
 
 bool generateKtuples(T_grid grid, int possibleValues[], int sizet, int k, int kuplet[], int index, int bfor, int X1, int Y1, int X2, int Y2) {
+    //Le premier appel à cette fonction veut savoir si des notes ont pu être modifiées
+    //La crétion des K-uples se fait dans la boucle "for"
     bool found = false;
     bool result1 = false;
     bool result2 = false;
     bool founded = false;
-    if (index == k) {
-        result1 = rules_89_zone (grid, X1, Y1, X2, Y2, k, kuplet);
-        if (result1)
+    if (index == k) {//Condition d'arrêt, on a créé un kuplet complet, on lance les règles 5 à 10 
+        result1 = rules_89_zone (grid, X1, Y1, X2, Y2, k, kuplet);     //Ici, pour chaque K-uplet, result1 renvoie "true" si
+        if (result1)                                                   //Une note a été modifiée (ie on pourra relancer run_rules depuis le début) 
         {
             found = true;
-            printf("VRAI\n");
         }
-        result2 = rules_67_zone (grid, X1, Y1, X2, Y2, k, kuplet);
+        result2 = rules_67_zone (grid, X1, Y1, X2, Y2, k, kuplet);      //Pareil que pour result1 mais avec "rules_67_zone"
         if (result2)
         {
             found = true;
         }
-        return found;
-    }
+        return found;        //Ce booléen est renvoyé à la fonction qui a généré cet appel de "generateKtuples", à savoir
+    }                        //Un autre generateKtuples (car c'est une fonction récursive)
 
     for (int i = bfor; i < sizet-k+1; i++) {
-        kuplet[index] = possibleValues[i];
+        kuplet[index] = possibleValues[i];      //Chaque appel de generateKtuples permet de remplir une case du tableau kuplet
         founded = founded || generateKtuples(grid, possibleValues, sizet+1, k, kuplet, index + 1, i + 1, X1, Y1, X2, Y2);
+        //Ainsi, au premier appel, on créé [1, , ], puis on lance generateKtuples pour l'indice suivant du tableau
+        //A ce nouvel appel on aura [1,2, ] qui recommencera jusqu'à remplir complètement le tableau kuplet
+        //La boucle "for" permet de générer tout les K-uplets possibles
+        //Enfin, comme chaque "found" est renvoyé aux "generateKtuples" qui l'a appelé, la dernière ligne de cette boucle
+        //Permet de retenir si une note a été modifiée dans la variable "founded" (true si c'est le cas)
     }
-    return founded;
+    return founded; 
 
 }
 
@@ -416,122 +457,56 @@ int max4(int a){
     else { return 4; }
 }
 
-bool rules_67(T_grid grid){
+
+//cette fonction lance les règles 6 à 10 sur toutes les lignes, colonnes et carrés de la grille
+bool rules_610(T_grid grid){
     int sizet;
     int * availVal;
     bool found = false;
     bool ktuple = false;
-    for (int l = 0; l < LENGTH; l++){
+    for (int l = 0; l < LENGTH; l++){       //Boucles pour les lignes
         sizet = 0;
-        availVal = availableValues(grid, l, 0, l, LENGTH-1, &sizet);
+        availVal = availableValues(grid, l, 0, l, LENGTH-1, &sizet);   //Renvoie les possibilités restantes sur la ligne
         for (int k = 2; k <= max4(sizet); k++){
             int kuplet[k];
-            ktuple = generateKtuples(grid, availVal, sizet, k, kuplet, 0, 0, l, 0, l, LENGTH-1);
+            ktuple = generateKtuples(grid, availVal, sizet, k, kuplet, 0, 0, l, 0, l, LENGTH-1);  //On lance les règles avec "generateKtuples" car c'est cette dernière qui appelle les règles 5 à 10
             if (ktuple == true)
             {
                 found = true;
-                //printf("OOOOOOOOOOO\n");
             }
         }
         free(availVal);
     }
-    for (int c = 0; c < LENGTH; c++){
-        sizet = 0;
-        availVal = availableValues(grid, 0, c, LENGTH-1, c, &sizet);
+    for (int c = 0; c < LENGTH; c++){       //Boucles pour les colonnes
+        sizet = 0;  
+        availVal = availableValues(grid, 0, c, LENGTH-1, c, &sizet);    //Renvoie les possibilités restantes sur la colonne
         for (int k = 2; k <= max4(sizet); k++){
             int kuplet[k];
-            ktuple = generateKtuples(grid, availVal, sizet, k, kuplet, 0, 0, 0, c, LENGTH-1, c);
+            ktuple = generateKtuples(grid, availVal, sizet, k, kuplet, 0, 0, 0, c, LENGTH-1, c);  //On lance les règles avec "generateKtuples" car c'est cette dernière qui appelle les règles 5 à 10
             if (ktuple == true)
             {
                 found = true;
-                //printf("OOOOOOOOOOO\n");
             }
         }
         free(availVal);
     }
 
-    for (int i = 0; i < LENGTH; i += NBSQRT){
+    for (int i = 0; i < LENGTH; i += NBSQRT){   //Boucles pour les blocs
         for (int j = 0; j < LENGTH; j += NBSQRT){
             sizet = 0;
-            availVal = availableValues(grid, i, j, i + NBSQRT - 1, j + NBSQRT - 1, &sizet);
+            availVal = availableValues(grid, i, j, i + NBSQRT - 1, j + NBSQRT - 1, &sizet);  //Renvoie les possibilités restantes dans le bloc
             for (int k = 2; k <= max4(sizet); k++){
                 int kuplet[k];
-                ktuple = generateKtuples(grid, availVal, sizet, k, kuplet, 0, 0, i, j, i + NBSQRT - 1, j + NBSQRT - 1);
+                ktuple = generateKtuples(grid, availVal, sizet, k, kuplet, 0, 0, i, j, i + NBSQRT - 1, j + NBSQRT - 1);  //On lance les règles avec "generateKtuples" car c'est cette dernière qui appelle les règles 5 à 10
                 if (ktuple == true)
                 {
                     found = true;
-                    //printf("OOOOOOOOOOO\n");
                 }
             }
             free(availVal);
         }
     }
 
-    if (found == true)
-            printf("LANCEMENTZONE      TRUETRUETRUETRUETRUE\n");
-    else printf("LANCEMENTZONE      FALSE\n");
-    return found;
+    return found;  //Ce booléen est à vrai si au moins un appel de "generateKtuples" à renvoyé "true"
+                   //Cela indique qu'une note au moins a été modifiée (ie on pourra alors relancer run_rules)
 }
-
-
-bool rules_89_zone(T_grid grid, int X1, int Y1, int X2, int Y2, int K, int * tab)
-{
-    //printf("RULES_89_ZONE NUMBER %d\n",varglob);
-    //printf("X1 = %d, X2 = %d, Y1 = %d Y2 = %d \n",X1, X2, Y1, Y2);
-    int tmp = setNote1_tab(tab, K);
-    int x = X1;
-    int y = Y1;
-    int nbrCoord = 0;
-    int notok = 0;
-    int note;
-    int tCoord[LENGTH - K][2];
-    //printf("X1 = %d, X2 = %d, Y1 = %d Y2 = %d \n",X1, X2, Y1, Y2);
-    while (x <= X2){
-        y = Y1;
-        while (y <= Y2){
-            note = grid[x][y].notes;
-            /*if (((tmp & note) == 0)  && (grid[x][y].value == 0)){
-                tCoord[notok][0] = x;
-                tCoord[notok][1] = y;
-                notok ++;
-            }
-            else {
-                if (grid[x][y].value == 0)
-                    nbrCoord++;
-            }*/
-            if (((tmp & note) == 0) && (LENGTH-K >= notok)){
-                tCoord[notok][0] = x;
-                tCoord[notok][1] = y;
-                notok ++;
-            }
-            else
-                {
-                    nbrCoord++;
-                }
-            y++;
-        }
-        x++;
-    }
-    //printf("ALORS PEUT ETRE ??\n");
-    bool found = false;
-    if (/*tmp_test == 0 && */nbrCoord == K){
-        /*printf("EUREKA RULES 89\n");
-        printf("X1 = %d, X2 = %d, Y1 = %d Y2 = %d \n",X1, X2, Y1, Y2);
-        for (int i = 0; i < K; i++)
-        {
-            printf("KUPLET TROUVE : %d\n", tab[i]);
-        }*/
-        bool result;
-        result = setNoteRule6(grid, X1, Y1, X2, Y2, tCoord, LENGTH - K, ~tmp);
-        if (result)
-        {
-            found = true;
-        }
-    }
-    return found;
-}
-
-
-
-
-

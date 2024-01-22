@@ -211,7 +211,7 @@ bool IsInTheTampon(int tmp, int note)
 
 
 //Applique les calculs nécessaires sur les cases nécessaires afin de supprimer des notes grâce aux règles 5 à 10
-bool setNoteRule6(T_grid grid, int x1_zone, int y1_zone, int x2_zone, int y2_zone, int tab[][2], int tablength, int tmp)
+bool setNoteRule610(T_grid grid, int x1_zone, int y1_zone, int x2_zone, int y2_zone, int tab[][2], int tablength, int tmp)
 {
     int tmp_note;
     bool found = false;
@@ -240,7 +240,7 @@ bool setNoteRule6(T_grid grid, int x1_zone, int y1_zone, int x2_zone, int y2_zon
             }
         }
         return found;       //Si une note a été modifiée, on renvoi "true" ce qui permet à la fonction ayant lancé
-                    //setNoteRule6 de savoir qu'il y a eu au moins 1 modification (permettra de relancer la boucle des règles)
+                    //setNoteRule610 de savoir qu'il y a eu au moins 1 modification (permettra de relancer la boucle des règles)
 }
 
 

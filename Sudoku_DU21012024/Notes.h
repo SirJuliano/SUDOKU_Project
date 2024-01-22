@@ -61,8 +61,8 @@ int getNbrNote(int note);
 //Détermine si la note dans une case peut correspondre avec un K-uplet nus
 bool IsInTheTampon(int tmp, int note);
 
-//Applique les calculs nécessaires sur les cases nécessaires afin de supprimer des notes grâce aux règles 5 à 10
-bool setNoteRule6(T_grid grid, int x1_zone, int y1_zone, int x2_zone, int y2_zone, int tab[][2], int tablength, int tmp);
+//Applique les calculs nécessaires sur les cases nécessaires afin de supprimer des notes grâce aux règles 6 à 10
+bool setNoteRule610(T_grid grid, int x1_zone, int y1_zone, int x2_zone, int y2_zone, int tab[][2], int tablength, int tmp);
 
 //Met à 1 les bits correspondants aux valeurs contenues dans "tab" (création des tampons des K-uplets)
 int setNote1_tab(int *tab, int sizet);

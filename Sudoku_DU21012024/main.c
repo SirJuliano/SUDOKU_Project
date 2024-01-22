@@ -165,15 +165,12 @@ int main()
 //TEST 8 RANDOM
     grille = add_Value(grille, 0, 0, 8);
     grille = add_Value(grille, 0, 1, 4);
-    //grille = add_Value(grille, 0, 3, 2);
     grille = add_Value(grille, 0, 6, 5);
     grille = add_Value(grille, 0, 7, 9);
     grille = add_Value(grille, 0, 8, 7);
     grille = add_Value(grille, 1, 0, 5);
     grille = add_Value(grille, 1, 1, 6);
-    //grille = add_Value(grille, 1, 2, 9);
     grille = add_Value(grille, 1, 4, 3);
-    //grille = add_Value(grille, 1, 8, 1);
     grille = add_Value(grille, 2, 2, 7);
     grille = add_Value(grille, 2, 5, 5);
     grille = add_Value(grille, 3, 2, 2);
@@ -187,15 +184,12 @@ int main()
     grille = add_Value(grille, 5, 6, 4);
     grille = add_Value(grille, 6, 3, 9);
     grille = add_Value(grille, 6, 6, 6);
-    //grille = add_Value(grille, 7, 0, 6);
     grille = add_Value(grille, 7, 4, 2);
     grille = add_Value(grille, 7, 6, 1);
     grille = add_Value(grille, 7, 7, 7);
-    //grille = add_Value(grille, 7, 8, 3);
     grille = add_Value(grille, 8, 0, 1);
     grille = add_Value(grille, 8, 1, 7);
     grille = add_Value(grille, 8, 2, 4);
-    //grille = add_Value(grille, 8, 5, 6);
     grille = add_Value(grille, 8, 7, 2);
     grille = add_Value(grille, 8, 8, 8);
 
