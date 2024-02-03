@@ -300,7 +300,7 @@ int main()
     */
 
 //TEST PAIRE POINTANTES
-
+/*
     grille = add_Value(grille, 0, 2, 9);
     grille = add_Value(grille, 0, 4, 7);
     grille = add_Value(grille, 1, 1, 8);
@@ -354,6 +354,66 @@ int main()
             printBinary2(grille[i][j]);
         }
     }
+
+    */
+
+
+//TEST POUR BOX2 ET/OU BOX3 REDUCTION
+    grille = add_Value(grille, 0, 0, 3);
+    grille = add_Value(grille, 0, 3, 5);
+    grille = add_Value(grille, 0, 5, 8);
+    grille = add_Value(grille, 0, 7, 2);
+    grille = add_Value(grille, 1, 0, 8);
+    grille = add_Value(grille, 1, 2, 2);
+    grille = add_Value(grille, 1, 3, 9);
+    grille = add_Value(grille, 1, 5, 3);
+    grille = add_Value(grille, 1, 7, 7);
+    grille = add_Value(grille, 2, 2, 5);
+    grille = add_Value(grille, 2, 3, 2);
+    grille = add_Value(grille, 2, 5, 4);
+    grille = add_Value(grille, 2, 6, 3);
+    grille = add_Value(grille, 2, 7, 8);
+    grille = add_Value(grille, 2, 8, 1);
+    grille = add_Value(grille, 3, 0, 4);
+    grille = add_Value(grille, 3, 1, 8);
+    grille = add_Value(grille, 3, 2, 3);
+    grille = add_Value(grille, 4, 1, 2);
+    grille = add_Value(grille, 5, 0, 5);
+    grille = add_Value(grille, 5, 1, 6);
+    grille = add_Value(grille, 5, 2, 9);
+    grille = add_Value(grille, 6, 1, 3);
+    grille = add_Value(grille, 7, 1, 5);
+    grille = add_Value(grille, 7, 2, 4);
+    grille = add_Value(grille, 8, 2, 8);
+    grille = add_Value(grille, 8, 8, 7);
+
+    Show_grid(grille, LENGTH);
+
+
+    for (int i = 0; i < 3; i++)
+    {
+        for (int j = 0; j < 3; j++)
+        {
+            printf("\ncase [%d][%d]\n", i, j);
+            printBinary2(grille[i][j]);
+        }
+    }
+
+    rules_1112_launch(grille);   //VERIFIER QU'ON A BIEN REMIS LES FONCTIONS EN ETAT
+    //run_rules(grille, LENGTH);
+
+    Show_grid(grille,LENGTH);
+
+    verifGrid(grille, LENGTH);
+    for (int i = 0; i < 3; i++)
+    {
+        for (int j = 0; j < 3; j++)
+        {
+            printf("\ncase [%d][%d]\n", i, j);
+            printBinary2(grille[i][j]);
+        }
+    }
+
 
     freeGrid(grille,LENGTH);
 

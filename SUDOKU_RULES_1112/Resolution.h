@@ -43,5 +43,6 @@ bool rules_610(T_grid grid);    //cette fonction lance les règles 6 à 10 sur t
 
 bool rules_1112_launch(T_grid grid);
 bool rules_1112(T_grid grid, int X1, int Y1, int X2, int Y2, int testValue);
+bool rules_box_reduction(T_grid grid, int X1, int Y1, int X2, int Y2, int testValue);
 
 #endif // RESOLUTION_H_INCLUDED

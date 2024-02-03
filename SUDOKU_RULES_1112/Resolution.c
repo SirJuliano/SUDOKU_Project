@@ -8,28 +8,28 @@
 #include "Resolution.h"
 #include "Notes.h"
 
-//Fonction qui vérifie si la valeur val est déjà apparue dans la ligne/case/colonne
+//Fonction qui vï¿½rifie si la valeur val est dï¿½jï¿½ apparue dans la ligne/case/colonne
 bool verifCase(bool *res, int val)
 {
-    if (res[val - 1])       // res est un tableau de booléens avec true pour la case(x-1) si la valeur x est déjà présente
+    if (res[val - 1])       // res est un tableau de boolï¿½ens avec true pour la case(x-1) si la valeur x est dï¿½jï¿½ prï¿½sente
     {
         return false;
     }
-    else                        // si elle ne l'est pas, on la note comme présente
+    else                        // si elle ne l'est pas, on la note comme prï¿½sente
     {
         res[val - 1] = true;
     }
     return true;
 }
 
-//fonction qui vérifie si la colonne/case/ligne ne possède pas plusieurs chiffres identiques
+//fonction qui vï¿½rifie si la colonne/case/ligne ne possï¿½de pas plusieurs chiffres identiques
 bool gridVerif(T_grid grid, int X1, int X2, int Y1, int Y2, int lenght)
 {
     bool res[(X2 - X1+1) * (Y2 - Y1+1)];
     for (int i = 0; i < lenght; i++)
                 res[i] = false;
-    //tableau de booléens initialisé a 0 avec autant de cases que de nombres à tester
-    //pour les chiffres de 1 à 9, il y aura 9 cases
+    //tableau de boolï¿½ens initialisï¿½ a 0 avec autant de cases que de nombres ï¿½ tester
+    //pour les chiffres de 1 ï¿½ 9, il y aura 9 cases
     for(int X = X1; X < X2 ; X++)
     {
         for(int Y = Y1; Y < Y2; Y++)
@@ -46,26 +46,26 @@ bool gridVerif(T_grid grid, int X1, int X2, int Y1, int Y2, int lenght)
     return true;
 }
 
-//fonction vérifiant la validité d'une ligne
+//fonction vï¿½rifiant la validitï¿½ d'une ligne
 bool verifLine(T_grid grid, int y, int length)
 {
     return gridVerif(grid, 0, length, y, y+1, length);
 }
 
-//fonction vérifiant la validité d'une colonne
+//fonction vï¿½rifiant la validitï¿½ d'une colonne
 bool verifColumn(T_grid grid, int x, int length)
 {
     return gridVerif(grid, x, x+1, 0, length, length);
 }
 
-//fonction vérifiant la validité d'un carré
+//fonction vï¿½rifiant la validitï¿½ d'un carrï¿½
 bool verifSquare(T_grid grid, int x, int y, int length)
 {
     int sizeSquare = (int)sqrt(length);
     return gridVerif(grid, x, (x + sizeSquare), y, (y + sizeSquare), length);
 }
 
-//fonction vérifiant la validité de la grille complète
+//fonction vï¿½rifiant la validitï¿½ de la grille complï¿½te
 bool verifGrid(T_grid grid, int length)
 {
 
@@ -78,12 +78,12 @@ bool verifGrid(T_grid grid, int length)
         }
     }
 
-    int nbrSquarePerLine = NBSQRT;                //nombre de carré par ligne/colonne
-    for (int j = 0; j < nbrSquarePerLine; j++)          //parcours des carrés de chaque lignes
+    int nbrSquarePerLine = NBSQRT;                //nombre de carrï¿½ par ligne/colonne
+    for (int j = 0; j < nbrSquarePerLine; j++)          //parcours des carrï¿½s de chaque lignes
     {
-        for (int k = 0; k < nbrSquarePerLine; k++)      //parcours des carrés de chaque colonnes
+        for (int k = 0; k < nbrSquarePerLine; k++)      //parcours des carrï¿½s de chaque colonnes
         {
-            if (verifSquare(grid, (j * nbrSquarePerLine), (k * nbrSquarePerLine), length) == false)     //on donne les coordonnées des cases situées en haut à gauche des carrés
+            if (verifSquare(grid, (j * nbrSquarePerLine), (k * nbrSquarePerLine), length) == false)     //on donne les coordonnï¿½es des cases situï¿½es en haut ï¿½ gauche des carrï¿½s
             {
                 printf("La grille est fausse\n");
                 return false;
@@ -97,7 +97,7 @@ bool verifGrid(T_grid grid, int length)
 
 
 
-//Application des règles 1 et 3
+//Application des rï¿½gles 1 et 3
 bool rule_1and3 (T_grid grid, int sizet)
 {
     printf("APPLICATION RULE_1_3\n");
@@ -122,7 +122,7 @@ bool rule_1and3 (T_grid grid, int sizet)
     return found;
 }
 
-//Application de la règle de résolution 2
+//Application de la rï¿½gle de rï¿½solution 2
 bool rule_2 (T_grid grid, int sizet)
 {
     printf("APPLICATION RULE_2\n");
@@ -156,7 +156,7 @@ bool rule_2 (T_grid grid, int sizet)
 }
 
 
-//Application de règle 2 spécifiquement à une ligne
+//Application de rï¿½gle 2 spï¿½cifiquement ï¿½ une ligne
 bool rule_2_line(T_grid grid, int sizet, int X, int Y, int tmp)
 {
     for (int y = 0; y < sizet; y++)
@@ -176,7 +176,7 @@ bool rule_2_line(T_grid grid, int sizet, int X, int Y, int tmp)
 }
 
 
-//Application de la règle 2 spécifiquement à une colonne
+//Application de la rï¿½gle 2 spï¿½cifiquement ï¿½ une colonne
 bool rule_2_column (T_grid grid, int sizet, int X, int Y, int tmp)
 {
     for (int x = 0; x < sizet; x++)
@@ -196,7 +196,7 @@ bool rule_2_column (T_grid grid, int sizet, int X, int Y, int tmp)
 }
 
 
-//Application de règle 2 spécifiquement à un bloc
+//Application de rï¿½gle 2 spï¿½cifiquement ï¿½ un bloc
 bool rule_2_square(T_grid grid, int sizet, int X, int Y, int tmp)
 {
     int xs = (X / NBSQRT) * NBSQRT;
@@ -230,7 +230,7 @@ bool verifbetweenrules(T_grid grid)
         {
             if ((caseVide(&grid[x][y])) && (grid[x][y].notes == 0))
             {
-                printf("La case [%d][%d] à un problème : elle est vide et aucune valeur ne peut y etre placée. La grille est donc fausse.\n",x,y);
+                printf("La case [%d][%d] ï¿½ un problï¿½me : elle est vide et aucune valeur ne peut y etre placï¿½e. La grille est donc fausse.\n",x,y);
                 problem = false;
             }
         }
@@ -239,7 +239,7 @@ bool verifbetweenrules(T_grid grid)
 }
 
 
-//Lance la résolution avec les règles 1 à 3
+//Lance la rï¿½solution avec les rï¿½gles 1 ï¿½ 3
 void run_rules (T_grid grid, int sizet)
 {
     if (!verifbetweenrules(grid))
@@ -313,7 +313,7 @@ void run_rules (T_grid grid, int sizet)
             else theend = true;
         }
 
-        // Si on arrive ici, c'est que ni rule_1and3, ni rule_2, ni rules_67 n'étaient vraies
+        // Si on arrive ici, c'est que ni rule_1and3, ni rule_2, ni rules_67 n'ï¿½taient vraies
     }
 }*/
 
@@ -338,13 +338,13 @@ void run_rules (T_grid grid, int sizet)
             }
         }
 
-        // Si on arrive ici, c'est que ni rule_1and3, ni rule_2, ni rules_67 n'étaient vraies
+        // Si on arrive ici, c'est que ni rule_1and3, ni rule_2, ni rules_67 n'ï¿½taient vraies
         theend = true;
     }
 }*/
 
 
-//fonction renvoyant un tableau remplie des valeurs non présentes dans une zone et sa taille
+//fonction renvoyant un tableau remplie des valeurs non prï¿½sentes dans une zone et sa taille
 int* availableValues(T_grid grid, int X1, int Y1, int X2, int Y2, int* length)
 {
     bool btab[LENGTH];
@@ -352,15 +352,15 @@ int* availableValues(T_grid grid, int X1, int Y1, int X2, int Y2, int* length)
     {
         btab[i]=true;
     }
-    for(int X = X1; X <=X2; X++)    //parcours de la zone donnée
+    for(int X = X1; X <=X2; X++)    //parcours de la zone donnï¿½e
     {
         for(int Y = Y1; Y <= Y2; Y++)
         {
             if(grid[X][Y].value != 0 && btab[grid[X][Y].value - 1] != false)   //si une case est remplie
             {
-                btab[grid[X][Y].value - 1] = false; //est est supprimée du tableau de possibilités
+                btab[grid[X][Y].value - 1] = false; //est est supprimï¿½e du tableau de possibilitï¿½s
             }
-            else (*length)++;   //sinon, le tableau de possibilité grandit
+            else (*length)++;   //sinon, le tableau de possibilitï¿½ grandit
         }
     }
     int* tab = (int*)malloc(*length * sizeof(int));
@@ -369,17 +369,17 @@ int* availableValues(T_grid grid, int X1, int Y1, int X2, int Y2, int* length)
     {
         if(btab[i])
         {
-            tab[index] = i+1;   //création du tableau remplie des valeurs possibles
+            tab[index] = i+1;   //crï¿½ation du tableau remplie des valeurs possibles
             index++;
         }
     }
     return tab;
 }
 
-//fonction envoyant les coordonnées des cases correspondantes au kuplet donnée (si elles existent) à setNoteRule610
+//fonction envoyant les coordonnï¿½es des cases correspondantes au kuplet donnï¿½e (si elles existent) ï¿½ setNoteRule610
 bool rules_67_zone(T_grid grid, int X1, int Y1, int X2, int Y2, int K, int * kuplet)
 {
-    int tmp = setNote1_tab(kuplet, K);  //création de tampon correspondant au kuplet donnée
+    int tmp = setNote1_tab(kuplet, K);  //crï¿½ation de tampon correspondant au kuplet donnï¿½e
     int x = X1;
     int y = Y1;
     int nbrCoord = 0;
@@ -390,7 +390,7 @@ bool rules_67_zone(T_grid grid, int X1, int Y1, int X2, int Y2, int K, int * kup
         while (y <= Y2 && nbrCoord < K){
             note = grid[x][y].notes;
             if (IsInTheTampon(tmp, note) && grid[x][y].value == 0){     //Si la note de d'une case est comprise dans le kuplet (et si elle est vide),
-                tCoord[nbrCoord][0] = x;                                //on garde ses coordonnées en mémoires afin de ne pas mofifier sa note.
+                tCoord[nbrCoord][0] = x;                                //on garde ses coordonnï¿½es en mï¿½moires afin de ne pas mofifier sa note.
                 tCoord[nbrCoord][1] = y;                                //On ne modifie que les cases ne comprenant pas le kuplet
                 nbrCoord++;
             }
@@ -400,19 +400,19 @@ bool rules_67_zone(T_grid grid, int X1, int Y1, int X2, int Y2, int K, int * kup
     }
     bool found = false;
     if (nbrCoord == K){                                                         //si le tableau est remplie
-        bool result = setNoteRule610(grid, X1, Y1, X2, Y2, tCoord, K, tmp);     //on applique les règles sur la zone donnée
+        bool result = setNoteRule610(grid, X1, Y1, X2, Y2, tCoord, K, tmp);     //on applique les rï¿½gles sur la zone donnï¿½e
         if (result)
         {
             found = true;
         }
     }
-    return found;       //on revoie true si la grille a été modifié, false sinon
+    return found;       //on revoie true si la grille a ï¿½tï¿½ modifiï¿½, false sinon
 }
 
-//fonction envoyant les coordonnées des cases correspondantes au kuplet donnée (si elles existent) à setNoteRule610
+//fonction envoyant les coordonnï¿½es des cases correspondantes au kuplet donnï¿½e (si elles existent) ï¿½ setNoteRule610
 bool rules_89_zone(T_grid grid, int X1, int Y1, int X2, int Y2, int K, int * tab)
 {
-    int tmp = setNote1_tab(tab, K);  //création de tampon correspondant au kuplet donnée
+    int tmp = setNote1_tab(tab, K);  //crï¿½ation de tampon correspondant au kuplet donnï¿½e
     int x = X1;
     int y = Y1;
     int nbrCoord = 0;
@@ -424,7 +424,7 @@ bool rules_89_zone(T_grid grid, int X1, int Y1, int X2, int Y2, int K, int * tab
         while (y <= Y2){
             note = grid[x][y].notes;
             if (((tmp & note) == 0) && (LENGTH - K >= notOk)){      //si la note de la case n'a rien en commun avec le kuplet et que le tableau n'est pas plein
-                tCoord[notOk][0] = x;                               //on garde ses coordonnées en mémoires afin de ne pas mofifier sa note.
+                tCoord[notOk][0] = x;                               //on garde ses coordonnï¿½es en mï¿½moires afin de ne pas mofifier sa note.
                 tCoord[notOk][1] = y;                               //On ne modifie que les cases comprenant le kuplet
                 notOk ++;
             }
@@ -438,26 +438,26 @@ bool rules_89_zone(T_grid grid, int X1, int Y1, int X2, int Y2, int K, int * tab
     }
     bool found = false;
     if (nbrCoord == K){                                                                 //si le tableau est remplie
-        bool result = setNoteRule610(grid, X1, Y1, X2, Y2, tCoord, LENGTH - K, ~tmp);   //on applique les règles sur la zone donnée
+        bool result = setNoteRule610(grid, X1, Y1, X2, Y2, tCoord, LENGTH - K, ~tmp);   //on applique les rï¿½gles sur la zone donnï¿½e
         if (result)
         {
             found = true;
         }
     }
-    return found;       //on revoie true si la grille a été modifié, false sinon
+    return found;       //on revoie true si la grille a ï¿½tï¿½ modifiï¿½, false sinon
 }
 
 
 bool generateKtuples(T_grid grid, int possibleValues[], int sizet, int k, int kuplet[], int index, int bfor, int X1, int Y1, int X2, int Y2) {
-    //Le premier appel à cette fonction veut savoir si des notes ont pu être modifiées
-    //La crétion des K-uples se fait dans la boucle "for"
+    //Le premier appel ï¿½ cette fonction veut savoir si des notes ont pu ï¿½tre modifiï¿½es
+    //La crï¿½tion des K-uples se fait dans la boucle "for"
     bool found = false;
     bool result1 = false;
     bool result2 = false;
     bool founded = false;
-    if (index == k) {//Condition d'arrêt, on a créé un kuplet complet, on lance les règles 5 à 10
+    if (index == k) {//Condition d'arrï¿½t, on a crï¿½ï¿½ un kuplet complet, on lance les rï¿½gles 5 ï¿½ 10
         result1 = rules_89_zone (grid, X1, Y1, X2, Y2, k, kuplet);     //Ici, pour chaque K-uplet, result1 renvoie "true" si
-        if (result1)                                                   //Une note a été modifiée (ie on pourra relancer run_rules depuis le début)
+        if (result1)                                                   //Une note a ï¿½tï¿½ modifiï¿½e (ie on pourra relancer run_rules depuis le dï¿½but)
         {
             found = true;
         }
@@ -466,17 +466,17 @@ bool generateKtuples(T_grid grid, int possibleValues[], int sizet, int k, int ku
         {
             found = true;
         }
-        return found;        //Ce booléen est renvoyé à la fonction qui a généré cet appel de "generateKtuples", à savoir
-    }                        //Un autre generateKtuples (car c'est une fonction récursive)
+        return found;        //Ce boolï¿½en est renvoyï¿½ ï¿½ la fonction qui a gï¿½nï¿½rï¿½ cet appel de "generateKtuples", ï¿½ savoir
+    }                        //Un autre generateKtuples (car c'est une fonction rï¿½cursive)
 
     for (int i = bfor; i < sizet-k+1; i++) {
         kuplet[index] = possibleValues[i];      //Chaque appel de generateKtuples permet de remplir une case du tableau kuplet
         founded = generateKtuples(grid, possibleValues, sizet+1, k, kuplet, index + 1, i + 1, X1, Y1, X2, Y2) || founded;
-        //Ainsi, au premier appel, on créé [1, , ], puis on lance generateKtuples pour l'indice suivant du tableau
-        //A ce nouvel appel on aura [1,2, ] qui recommencera jusqu'à remplir complètement le tableau kuplet
-        //La boucle "for" permet de générer tout les K-uplets possibles
-        //Enfin, comme chaque "found" est renvoyé aux "generateKtuples" qui l'a appelé, la dernière ligne de cette boucle
-        //Permet de retenir si une note a été modifiée dans la variable "founded" (true si c'est le cas)
+        //Ainsi, au premier appel, on crï¿½ï¿½ [1, , ], puis on lance generateKtuples pour l'indice suivant du tableau
+        //A ce nouvel appel on aura [1,2, ] qui recommencera jusqu'ï¿½ remplir complï¿½tement le tableau kuplet
+        //La boucle "for" permet de gï¿½nï¿½rer tout les K-uplets possibles
+        //Enfin, comme chaque "found" est renvoyï¿½ aux "generateKtuples" qui l'a appelï¿½, la derniï¿½re ligne de cette boucle
+        //Permet de retenir si une note a ï¿½tï¿½ modifiï¿½e dans la variable "founded" (true si c'est le cas)
     }
     return founded;
 
@@ -488,7 +488,7 @@ int max4(int a){
 }
 
 
-//cette fonction lance les règles 6 à 10 sur toutes les lignes, colonnes et carrés de la grille
+//cette fonction lance les rï¿½gles 6 ï¿½ 10 sur toutes les lignes, colonnes et carrï¿½s de la grille
 bool rules_610(T_grid grid){
     printf("APPLICATION RULES_610\n");
     int sizet;
@@ -497,10 +497,10 @@ bool rules_610(T_grid grid){
     for (int l = 0; l < LENGTH; l++){       //Boucles pour les lignes
         sizet = 0;
         int * availVal;
-        availVal = availableValues(grid, l, 0, l, LENGTH-1, &sizet);   //Renvoie les possibilités restantes sur la ligne
+        availVal = availableValues(grid, l, 0, l, LENGTH-1, &sizet);   //Renvoie les possibilitï¿½s restantes sur la ligne
         for (int k = 2; k <= max4(sizet); k++){
             int kuplet[k];
-            ktuple = generateKtuples(grid, availVal, sizet, k, kuplet, 0, 0, l, 0, l, LENGTH-1);  //On lance les règles avec "generateKtuples" car c'est cette dernière qui appelle les règles 5 à 10
+            ktuple = generateKtuples(grid, availVal, sizet, k, kuplet, 0, 0, l, 0, l, LENGTH-1);  //On lance les rï¿½gles avec "generateKtuples" car c'est cette derniï¿½re qui appelle les rï¿½gles 5 ï¿½ 10
             if (ktuple == true)
             {
                 found = true;
@@ -512,10 +512,10 @@ bool rules_610(T_grid grid){
     for (int c = 0; c < LENGTH; c++){      //Boucles pour les colonnes
         sizet = 0;
         int * availVal;
-        availVal = availableValues(grid, 0, c, LENGTH-1, c, &sizet);    //Renvoie les possibilités restantes sur la colonne
+        availVal = availableValues(grid, 0, c, LENGTH-1, c, &sizet);    //Renvoie les possibilitï¿½s restantes sur la colonne
         for (int k = 2; k <= max4(sizet); k++){
             int kuplet[k];
-            ktuple = generateKtuples(grid, availVal, sizet, k, kuplet, 0, 0, 0, c, LENGTH-1, c);  //On lance les règles avec "generateKtuples" car c'est cette dernière qui appelle les règles 5 à 10
+            ktuple = generateKtuples(grid, availVal, sizet, k, kuplet, 0, 0, 0, c, LENGTH-1, c);  //On lance les rï¿½gles avec "generateKtuples" car c'est cette derniï¿½re qui appelle les rï¿½gles 5 ï¿½ 10
             if (ktuple == true)
             {
                 found = true;
@@ -528,10 +528,10 @@ bool rules_610(T_grid grid){
         for (int j = 0; j < LENGTH; j += NBSQRT){
             sizet = 0;
             int * availVal;
-            availVal = availableValues(grid, i, j, i + NBSQRT - 1, j + NBSQRT - 1, &sizet);  //Renvoie les possibilités restantes dans le bloc
+            availVal = availableValues(grid, i, j, i + NBSQRT - 1, j + NBSQRT - 1, &sizet);  //Renvoie les possibilitï¿½s restantes dans le bloc
             for (int k = 2; k <= max4(sizet); k++){
                 int kuplet[k];
-                ktuple = generateKtuples(grid, availVal, sizet, k, kuplet, 0, 0, i, j, i + NBSQRT - 1, j + NBSQRT - 1);  //On lance les règles avec "generateKtuples" car c'est cette dernière qui appelle les règles 5 à 10
+                ktuple = generateKtuples(grid, availVal, sizet, k, kuplet, 0, 0, i, j, i + NBSQRT - 1, j + NBSQRT - 1);  //On lance les rï¿½gles avec "generateKtuples" car c'est cette derniï¿½re qui appelle les rï¿½gles 5 ï¿½ 10
                 if (ktuple == true)
                 {
                     found = true;
@@ -540,8 +540,8 @@ bool rules_610(T_grid grid){
             free(availVal);
         }
     }
-    return found;  //Ce booléen est à vrai si au moins un appel de "generateKtuples" à renvoyé "true"
-                   //Cela indique qu'une note au moins a été modifiée (ie on pourra alors relancer run_rules)
+    return found;  //Ce boolï¿½en est ï¿½ vrai si au moins un appel de "generateKtuples" ï¿½ renvoyï¿½ "true"
+                   //Cela indique qu'une note au moins a ï¿½tï¿½ modifiï¿½e (ie on pourra alors relancer run_rules)
 }
 
 
@@ -557,13 +557,35 @@ bool rules_1112_launch(T_grid grid)
     for (int i = 0; i < LENGTH; i += NBSQRT){   //Boucles pour les blocs
         for (int j = 0; j < LENGTH; j += NBSQRT){
             sizetAvailVal = 0;
-            availval = availableValues(grid, i, j, i + NBSQRT - 1, j + NBSQRT - 1, &sizetAvailVal); //Renvoie les possibilités restantes dans le bloc
+            availval = availableValues(grid, i, j, i + NBSQRT - 1, j + NBSQRT - 1, &sizetAvailVal); //Renvoie les possibilitï¿½s restantes dans le bloc
             for (int k = 0; k < sizetAvailVal; k++){
                 found = rules_1112(grid,i, j, i + NBSQRT - 1, j + NBSQRT - 1, availval[k]) || found;
             }
             free(availval);
         }
     }
+
+
+    for (int l = 0; l < LENGTH; l++){       //Boucles pour les lignes
+        sizetAvailVal = 0;
+        int * availval;
+        availval = availableValues(grid, l, 0, l, LENGTH-1, &sizetAvailVal);   //Renvoie les possibilitï¿½s restantes sur la ligne
+        for (int k = 0; k < sizetAvailVal; k++){
+            found = rules_box_reduction(grid, l, 0, l, LENGTH-1, availval[k]);
+        }
+        free(availval);
+    }
+
+    for (int c = 0; c < LENGTH; c++){      //Boucles pour les colonnes
+        sizetAvailVal = 0;
+        int * availval;
+        availval = availableValues(grid, 0, c, LENGTH-1, c, &sizetAvailVal);    //Renvoie les possibilitï¿½s restantes sur la colonne
+        for (int k = 0; k < sizetAvailVal; k++){
+            found = rules_box_reduction(grid, 0, c, LENGTH-1, c, availval[k]);
+        }
+        free(availval);
+    }
+    
 
     return found;
 
@@ -583,10 +605,8 @@ bool rules_1112(T_grid grid, int X1, int Y1, int X2, int Y2, int testValue)
     int nbrMatchCases = 0;
     bool found = false;
     int i = X1;
-    //for (int i = X1; i <= X2; i++)
     while (i <= X2 && (rowPossible || columnPossible))
     {
-        //for (int j = Y1; j <= Y2; j++)
         int j = Y1;
         while (j <= Y2 && (rowPossible || columnPossible))
         {
@@ -630,3 +650,57 @@ bool rules_1112(T_grid grid, int X1, int Y1, int X2, int Y2, int testValue)
 
     return found;
 }
+
+
+bool rules_box_reduction(T_grid grid, int X1, int Y1, int X2, int Y2, int testValue)
+{
+
+    bool firstMatchFound = false;
+    int tmp = setNote1_int(testValue);
+    int x;
+    int y;
+    bool blocPossible = true;
+    int note;
+    int MatchCases [LENGTH][2];
+    int nbrMatchCases = 0;
+    bool found = false;
+    int i = X1;
+    while (i <= X2 && (blocPossible))
+    {
+        int j = Y1;
+        while (j <= Y2 && (blocPossible))
+        {
+            if (caseVide(&grid[i][j]))
+            {
+                note = grid[i][j].notes;
+                if (IsInTheTampon(note,tmp))
+                {
+                    if (!firstMatchFound)
+                    {
+                        x = (i / NBSQRT) * NBSQRT;
+                        y = (j / NBSQRT) * NBSQRT;
+                        firstMatchFound = true;
+                    }
+                    else
+                    {
+                        if ((x != (i / NBSQRT) * NBSQRT) || (y != (j / NBSQRT) * NBSQRT))
+                            blocPossible = false;
+                    }
+                    MatchCases[nbrMatchCases][0] = i;
+                    MatchCases[nbrMatchCases][1] = j;
+                    nbrMatchCases ++;
+                }
+            }
+            j++;
+        }
+        i++;
+    }
+
+    if (blocPossible && (nbrMatchCases > 1))
+    {
+        found = setNoteRule610(grid, x, y, x+NBSQRT-1, y+NBSQRT-1, MatchCases, nbrMatchCases, tmp) || found;
+    }
+
+    return found;
+}
+
