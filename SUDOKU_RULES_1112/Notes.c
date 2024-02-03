@@ -90,13 +90,6 @@ void setNote0Zone(T_grid grid, int x, int y,int length, int numNote)
 }
 
 
-// int getNote(Box *cell, int numNote)
-// {
-//     int mask = 1 << (numNote - 1);
-//     return (cell->notes & mask) != 0;
-// }
-
-
 //Affiche l'entier correspondant à la note d'une case en binaire
 void printBinary2(Box cell)
 {

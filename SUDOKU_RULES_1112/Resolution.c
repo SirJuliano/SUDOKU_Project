@@ -275,73 +275,8 @@ void run_rules (T_grid grid, int sizet)
         }
 
     }
-/*
-     bool testGlobal = true;
-     bool testValid = true;
-
-     while (testGlobal){
-         while (!rule_1and3(grid, sizet)){
-             testValid = true;
-             while (!rule_2(grid, sizet) && testValid){
-                 while (!rules_67(grid) && testValid){
-                     testGlobal = false;
-                     break;
-                 }
-                 testValid = false;
-             }
-         }
-     }
- }
-*/
 }
-/*void run_rules (T_grid grid, int sizet)
-{
-    bool theend = false;
-    while (!theend)
-    {
-        while (!rule_1and3(grid, sizet))
-        {
-            if (rule_2(grid, sizet))
-            {
-                continue;
-            }
-            // Si rules_67 est vraie, recommencer la boucle interne
-            else if (rules_67(grid))
-            {
-                continue;
-            }
-            else theend = true;
-        }
 
-        // Si on arrive ici, c'est que ni rule_1and3, ni rule_2, ni rules_67 n'�taient vraies
-    }
-}*/
-
-/*void run_rules(T_grid grid, int sizet) {
-    printf("RUN_RULES\n");
-    bool theend = false;
-
-    while (!theend) {
-        // Tant que rule_1and3 est vraie, ou que rule_2 est vraie, ou que rules_67 est vraie
-        while (rule_1and3(grid, sizet) || rule_2(grid, sizet) || rules_67(grid)) {
-            // Si rule_1and3 est vraie, recommencer la boucle interne
-            if (rule_1and3(grid, sizet)) {
-                continue;
-            }
-            // Si rule_2 est vraie, recommencer la boucle interne
-            else if (rule_2(grid, sizet)) {
-                continue;
-            }
-            // Si rules_67 est vraie, recommencer la boucle interne
-            else if (rules_67(grid)) {
-                continue;
-            }
-        }
-
-        // Si on arrive ici, c'est que ni rule_1and3, ni rule_2, ni rules_67 n'�taient vraies
-        theend = true;
-    }
-}*/
 
 
 //fonction renvoyant un tableau remplie des valeurs non pr�sentes dans une zone et sa taille
@@ -548,9 +483,13 @@ bool rules_610(T_grid grid){
 
 
 
+
+//Cette fonction lance les règles 11, 11', 12 et 12' sur les zones nécessaires
 bool rules_1112_launch(T_grid grid)
 {
     printf("APPLICATION RULES_1112\n");
+    //Cette double boucle "for" permet de lancer les règles 11 et 12 (paires et triplets pointants) sur les blocs
+    //Car ces deux règles ne s'appliquent que sur les blocs
     bool found = false;
     int * availval;
     int sizetAvailVal;
@@ -558,50 +497,59 @@ bool rules_1112_launch(T_grid grid)
         for (int j = 0; j < LENGTH; j += NBSQRT){
             sizetAvailVal = 0;
             availval = availableValues(grid, i, j, i + NBSQRT - 1, j + NBSQRT - 1, &sizetAvailVal); //Renvoie les possibilit�s restantes dans le bloc
+            //Lance la fonction des paires et triplets pointants pour chaque possibilité restante
             for (int k = 0; k < sizetAvailVal; k++){
-                found = rules_1112(grid,i, j, i + NBSQRT - 1, j + NBSQRT - 1, availval[k]) || found;
+                found = rules_1112(grid,i, j, i + NBSQRT - 1, j + NBSQRT - 1, availval[k]) || found; 
             }
             free(availval);
         }
     }
 
 
+    //Cette boucle permet de lancer les fonctions 11' et 12' (box-2et box-3 réduction) sur les lignes
     for (int l = 0; l < LENGTH; l++){       //Boucles pour les lignes
         sizetAvailVal = 0;
         int * availval;
         availval = availableValues(grid, l, 0, l, LENGTH-1, &sizetAvailVal);   //Renvoie les possibilit�s restantes sur la ligne
+        //Lance la fonction box-2 et box-3 réduction pour chaque possibilité restante sur la ligne l
         for (int k = 0; k < sizetAvailVal; k++){
-            found = rules_box_reduction(grid, l, 0, l, LENGTH-1, availval[k]);
+            found = rules_box_reduction(grid, l, 0, l, LENGTH-1, availval[k]) || found;
         }
         free(availval);
     }
 
+
+    //Cette boucle permet de lancer les fonctions 11' et 12' (box-2et box-3 réduction) sur les colonnes
     for (int c = 0; c < LENGTH; c++){      //Boucles pour les colonnes
         sizetAvailVal = 0;
         int * availval;
         availval = availableValues(grid, 0, c, LENGTH-1, c, &sizetAvailVal);    //Renvoie les possibilit�s restantes sur la colonne
+        //Lance la fonction box-2 et box-3 réduction pour chaque possibilité restante sur la colonne c
         for (int k = 0; k < sizetAvailVal; k++){
-            found = rules_box_reduction(grid, 0, c, LENGTH-1, c, availval[k]);
+            found = rules_box_reduction(grid, 0, c, LENGTH-1, c, availval[k]) || found;
         }
         free(availval);
     }
     
-
+    //Renvoi vrai si une case a vu sa note modifiée
     return found;
 
 }
 
+
+//Fonction qui applique la logique des paires et triplets pointants(règle 11 et 12)
+//Son lancement sur la grille est géré par rules_1112_launch et ne s'applique qu'aux blocs
 bool rules_1112(T_grid grid, int X1, int Y1, int X2, int Y2, int testValue)
 {
 
-    bool firstMatchFound = false;
+    bool firstMatchFound = false;       //Booléen permettant de savoir si on a trouvé une première case qui "match"
     int tmp = setNote1_int(testValue);
-    int x;
-    int y;
-    bool rowPossible = true;
-    bool columnPossible = true;
+    int x;                              //On stock ici la coordonnée en X de la première valeur qui "match"
+    int y;                              //On stock ici la coordonnée en Y de la première valeur qui "match"
+    bool rowPossible = true;            //Booléen indiquant si on peut appliquer la règle sur une ligne 
+    bool columnPossible = true;         //Booléen indiquant si on peut appliquer la règle sur une colonne
     int note;
-    int MatchCases [LENGTH][2];
+    int MatchCases [LENGTH][2];         //Tableau contenant les coordonnées des cases qui "match"
     int nbrMatchCases = 0;
     bool found = false;
     int i = X1;
@@ -613,23 +561,23 @@ bool rules_1112(T_grid grid, int X1, int Y1, int X2, int Y2, int testValue)
             if (caseVide(&grid[i][j]))
             {
                 note = grid[i][j].notes;
-                if (IsInTheTampon(note,tmp))
+                if (IsInTheTampon(note,tmp))    //Détermine si la case "match" avec le tampon
                 {
-                    if (!firstMatchFound)
+                    if (!firstMatchFound)       //Si on a pas trouvé une première valeur qui "match"
                     {
-                        x = i;
+                        x = i;                  //On stock ses coordonnées
                         y = j;
-                        firstMatchFound = true;
+                        firstMatchFound = true;//On passe à true pour ne plus passer par ce if
                     }
-                    else
-                    {
-                        if (x != i)
-                            rowPossible = false;
-                        if (y != j)
+                    else                        //Si ce n'est pas la première valeur trouvée
+                    {                           //On va comparer ses coordonnées avec celles de la première case trouvée
+                        if (x != i)             //Cela indique que les deux cases ne partagent pas la même ligne
+                            rowPossible = false;//On peut donc supprimer l'éventualité d'une application sur une ligne
+                        if (y != j)             //Pareil mais pour les colonnes
                             columnPossible = false;
                     }
-                    MatchCases[nbrMatchCases][0] = i;
-                    MatchCases[nbrMatchCases][1] = j;
+                    MatchCases[nbrMatchCases][0] = i; //on stocke les coordonnées de la case
+                    MatchCases[nbrMatchCases][1] = j; //on stocke les coordonnées de la case
                     nbrMatchCases ++;
                 }
             }
@@ -637,7 +585,7 @@ bool rules_1112(T_grid grid, int X1, int Y1, int X2, int Y2, int testValue)
         }
         i++;
     }
-
+    //On lance la modification des notes si et seulement si on peut soit sur une ligne, soit sur une colonne
     if (rowPossible && (!columnPossible))
     {
         found = setNoteRule610(grid, MatchCases[0][0], 0, MatchCases[0][0], LENGTH-1, MatchCases, nbrMatchCases, tmp) || found;
@@ -648,20 +596,23 @@ bool rules_1112(T_grid grid, int X1, int Y1, int X2, int Y2, int testValue)
         found = setNoteRule610(grid, 0, MatchCases[0][1], LENGTH-1, MatchCases[0][1], MatchCases, nbrMatchCases, tmp) || found ;
     }
 
+    //Renvoi vrai si une case a vu sa note modifiée
     return found;
 }
 
 
+
+//Fonction qui applique la logique des box reduction sur un bloc
 bool rules_box_reduction(T_grid grid, int X1, int Y1, int X2, int Y2, int testValue)
 {
 
-    bool firstMatchFound = false;
+    bool firstMatchFound = false;           //Booléen permettant de savoir si on a trouvé une première case qui "match"
     int tmp = setNote1_int(testValue);
-    int x;
-    int y;
-    bool blocPossible = true;
+    int x;         //On stock ici la coordonnée en X de la première case du bloc où se trouve la première case qui "match"
+    int y;         //On stock ici la coordonnée en Y de la première case du bloc où se trouve la première case qui "match"
+    bool blocPossible = true;  //Booléen indiquant si les cases qui "match" sont toutes dans le même bloc
     int note;
-    int MatchCases [LENGTH][2];
+    int MatchCases [LENGTH][2]; //Tableau contenant les coordonnées des cases qui "match"
     int nbrMatchCases = 0;
     bool found = false;
     int i = X1;
@@ -673,21 +624,21 @@ bool rules_box_reduction(T_grid grid, int X1, int Y1, int X2, int Y2, int testVa
             if (caseVide(&grid[i][j]))
             {
                 note = grid[i][j].notes;
-                if (IsInTheTampon(note,tmp))
+                if (IsInTheTampon(note,tmp))  //Détermine si la case "match" avec le tampon
                 {
-                    if (!firstMatchFound)
+                    if (!firstMatchFound)     //Si on a pas trouvé une première valeur qui "match"
                     {
-                        x = (i / NBSQRT) * NBSQRT;
-                        y = (j / NBSQRT) * NBSQRT;
-                        firstMatchFound = true;
+                        x = (i / NBSQRT) * NBSQRT; //On stock les coordonnées de la première case du bloc où se trouve
+                        y = (j / NBSQRT) * NBSQRT; //La case qui "match"
+                        firstMatchFound = true;  //On passe à true pour ne plus passer par ce if
                     }
-                    else
-                    {
-                        if ((x != (i / NBSQRT) * NBSQRT) || (y != (j / NBSQRT) * NBSQRT))
-                            blocPossible = false;
+                    else                         //Si ce n'est pas la première valeur trouvée
+                    {       //On va comparée x et y aux coordonnées de la première case du bloc où se trouve la nouvelle 
+                        if ((x != (i / NBSQRT) * NBSQRT) || (y != (j / NBSQRT) * NBSQRT)) //case qui "match"
+                            blocPossible = false;           //Si ce n'est pas la même, on supprime l'éventualité d'une application
                     }
-                    MatchCases[nbrMatchCases][0] = i;
-                    MatchCases[nbrMatchCases][1] = j;
+                    MatchCases[nbrMatchCases][0] = i; //on stocke les coordonnées de la case
+                    MatchCases[nbrMatchCases][1] = j; //on stocke les coordonnées de la case
                     nbrMatchCases ++;
                 }
             }
@@ -695,12 +646,13 @@ bool rules_box_reduction(T_grid grid, int X1, int Y1, int X2, int Y2, int testVa
         }
         i++;
     }
-
+    //On lance la modification des notes si et seulement on a plus d'un match et que blocPossible est à true
     if (blocPossible && (nbrMatchCases > 1))
     {
         found = setNoteRule610(grid, x, y, x+NBSQRT-1, y+NBSQRT-1, MatchCases, nbrMatchCases, tmp) || found;
     }
 
+    //Renvoi vrai si une case a vu sa note modifiée
     return found;
 }
 

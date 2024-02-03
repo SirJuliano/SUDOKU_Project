@@ -23,7 +23,7 @@ void setNote0Square(T_grid grid, int x, int y, int length, int numNote);
 
 //Applique ensembles les 3 précédentes fonctions
 void setNote0Zone(T_grid grid, int x, int y,int length, int numNote);
-//**************************FIN LIGNE 83********************************************
+//**************************FIN LIGNE 90********************************************
 
 // int getNote(Box *cell, int numNote);
 
