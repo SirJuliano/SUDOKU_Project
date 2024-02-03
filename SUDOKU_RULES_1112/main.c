@@ -325,6 +325,9 @@ int main()
     grille = add_Value(grille, 8, 7, 8);
     grille = add_Value(grille, 8, 8, 4);
 
+    //Pour engendrer une grille fausse :
+    //grille = add_Value(grille, 7, 8, 8);
+
     Show_grid(grille, LENGTH);
 
 
@@ -338,6 +341,7 @@ int main()
     }
 
     rules_1112_launch(grille);   //VERIFIER QU'ON A BIEN REMIS LES FONCTIONS EN ETAT
+    //run_rules(grille, LENGTH);
 
     Show_grid(grille,LENGTH);
 

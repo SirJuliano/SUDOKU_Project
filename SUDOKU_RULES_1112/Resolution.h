@@ -26,6 +26,7 @@ bool rule_2 (T_grid grid, int sizet);
 bool rule_2_line(T_grid grid, int sizet, int X, int Y, int tmp);//Fonction appliquant la règle de résolution 2
 bool rule_2_column (T_grid grid, int sizet, int X, int Y, int tmp);//fonction appliquant rule_2 à une colonne
 bool rule_2_square(T_grid grid, int sizet, int X, int Y, int tmp);//fonction appliquant rule_2 à un bloc
+bool verifbetweenrules(T_grid grid);
 void run_rules (T_grid grid, int sizet);                        //fonction appliquant rule_2 à une ligne
 //**********************FIN LIGNE 247***************************************************************************************
 

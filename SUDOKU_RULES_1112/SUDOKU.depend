@@ -372,7 +372,7 @@
 	<math.h>
 	"Grille.h"
 
-1706953399 source:c:\users\julie\downloads\sudoku_rules_1112\main.c
+1706971133 source:c:\users\julie\downloads\sudoku_rules_1112\main.c
 	<stdio.h>
 	<stdlib.h>
 	<stdbool.h>
@@ -381,11 +381,11 @@
 	"Resolution.h"
 	"Notes.h"
 
-1706951993 c:\users\julie\downloads\sudoku_rules_1112\resolution.h
+1706970072 c:\users\julie\downloads\sudoku_rules_1112\resolution.h
 	<stdbool.h>
 	"Grille.h"
 
-1706962984 source:c:\users\julie\downloads\sudoku_rules_1112\resolution.c
+1706971052 source:c:\users\julie\downloads\sudoku_rules_1112\resolution.c
 	<stdio.h>
 	<stdlib.h>
 	<stdbool.h>
