@@ -656,3 +656,135 @@ bool rules_box_reduction(T_grid grid, int X1, int Y1, int X2, int Y2, int testVa
     return found;
 }
 
+
+
+
+
+
+
+bool Line_Xwing(T_grid grid, int X1, int Y1, int X2, int Y2, int tmp_testValue, int** tab)
+{
+    int nbfound = 0;
+    for(int x = X1; x < X2 +1 ; x++)
+    {
+        for(int y = Y1; y < Y2; y++)
+        {
+            if(caseVide(&grid[x][y]))
+            {
+                if(IsInTheTampon(tmp_testValue, grid[x][y].notes))
+                {
+                    if(nbfound < 2)
+                    {
+                        tab[nbfound][0] = x;
+                        tab[nbfound][1] = y;
+                        nbfound ++;
+                    }
+                    else
+                    {
+                        return false;
+                    }
+                }
+                
+            }
+        }
+        
+    }
+    if(nbfound == 2)
+    {
+        return true;
+    }
+}
+
+
+
+
+
+bool x_wing_search (T_grid grid, int tmp_testValue, int* foundboxes[4], int testboxes [][2])
+{
+    if (testboxes[0][0] == testboxes[1][0])
+    {
+        for (int i = 0; i < LENGTH; i++)
+        {
+            if (!caseVide(&grid[i][testboxes[0][1]].notes) && IsInTheTampon(tmp_testValue, grid[i][testboxes[0][1]].notes))
+            {
+                int* tab[2];
+                if (Line_Xwing(grid, i, 0, i, LENGTH, tmp_testValue, tab))
+                {
+                    foundboxes[0][0] = testboxes[0][0]; 
+                    foundboxes[0][1] = testboxes[0][1]; 
+                    foundboxes[1][0] = testboxes[1][0]; 
+                    foundboxes[1][1] = testboxes[1][1]; 
+                    foundboxes[2][0] = tab [0][0];
+                    foundboxes[2][1] = tab [0][1];
+                    foundboxes[3][0] = tab [1][0];
+                    foundboxes[3][1] = tab [1][1];
+                    return true;
+                }
+            }
+        }
+    }
+    else 
+    {
+        for (int i = 0; i < LENGTH; i++)
+        {
+            if (!caseVide(&grid[testboxes[0][0]][i].notes) && IsInTheTampon(tmp_testValue, grid[testboxes[0][0]][i].notes))
+            {
+                if (Line_Xwing(grid, 0, i, LENGTH, i, tmp_testValue, foundboxes))
+                {
+                    return true;
+                }
+            }
+        }
+    }
+
+    return false;
+}
+
+
+
+
+bool x_wing_rules(T_grid grid)
+{
+    bool found = false;
+    for (int l = 0; l < LENGTH; l++)
+    {
+        int* nbrAvailVal = 0;
+        int* availval = availableValues(grid, l, 0, l, LENGTH, nbrAvailVal);
+        for (int index = 0; index < nbrAvailVal; index++)
+        {
+            int* tab[2];
+            int tmp_testValue = setNote1_int(availval[index]);
+            if (Line_Xwing(grid, l, 0, l, LENGTH, tmp_testValue, tab))
+            {
+                int* finaltab[2];
+                if (x_wing_search(grid, tmp_testValue, finaltab, tab))
+                {
+                    found = setNoteRule610(grid, 0, finaltab[0][1], LENGTH, finaltab[0][1], finaltab, 4, tmp_testValue) || found;
+                    found = setNoteRule610(grid, 0, finaltab[1][1], LENGTH, finaltab[1][1], finaltab, 4, tmp_testValue) || found;
+                }
+            }
+        }
+    }
+
+    for (int c = 0; c < LENGTH; c++)
+    {
+        int* nbrAvailVal = 0;
+        int* availval = availableValues(grid, 0, c, LENGTH, c, nbrAvailVal);
+        for (int index = 0; index < nbrAvailVal; index++)
+        {
+            int* tab[2];
+            int tmp_testValue = setNote1_int(availval[index]);
+            if (Line_Xwing(grid, 0, c, LENGTH, c, tmp_testValue, tab))
+            {
+                int* finaltab[2];
+                if (x_wing_search(grid, tmp_testValue, finaltab, tab))
+                {
+                    found = setNoteRule610(grid, finaltab[0][0], 0, finaltab[0][0], LENGTH, finaltab, 4, tmp_testValue) || found;
+                    found = setNoteRule610(grid, finaltab[1][0], 0, finaltab[1][0], LENGTH, finaltab, 4, tmp_testValue) || found;
+                }
+            }
+        }
+    }
+
+    return found;
+}
