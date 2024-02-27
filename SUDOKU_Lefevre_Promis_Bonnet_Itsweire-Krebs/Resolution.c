@@ -790,10 +790,10 @@ bool x_wing_rules(T_grid grid)
                 int finaltab[4][2];
                 if (x_wing_search(grid, tmp_testValue, finaltab, tab))
                 {
-                    printf("EUREKA !!!!!!!!!!!!!\n");
+                    printf("EUREKAKA !!!!!!!!!!!!!\n");
                     found = setNoteRule610(grid, 0, finaltab[0][1], LENGTH-1, finaltab[0][1], finaltab, 4, tmp_testValue) || found;
                     found = setNoteRule610(grid, 0, finaltab[1][1], LENGTH-1, finaltab[1][1], finaltab, 4, tmp_testValue) || found;
-                    printf("SORTIE EUREKA\n");
+                    printf("SORTIE EUREKAKA\n");
                 }
             }
         }
