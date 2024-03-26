@@ -1,0 +1,3 @@
+/home/nono/Downloads/SUDOKU_Project-NonoBnt-patch-1/SUDOKU_Project-XwingNOSDL/cmake-build-debug/CMakeFiles/SUDOKU_Project_XwingNOSDL.dir
+/home/nono/Downloads/SUDOKU_Project-NonoBnt-patch-1/SUDOKU_Project-XwingNOSDL/cmake-build-debug/CMakeFiles/edit_cache.dir
+/home/nono/Downloads/SUDOKU_Project-NonoBnt-patch-1/SUDOKU_Project-XwingNOSDL/cmake-build-debug/CMakeFiles/rebuild_cache.dir
